@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 import {
   ArrowRight,
   BadgeCheck,
@@ -146,8 +149,8 @@ const expansion = [
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mono mb-5 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0F7A7C]">
-      <span className="h-px w-12 bg-[#0F7A7C]" />
+    <div className="mono mb-5 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7A2D3A]">
+      <span className="h-px w-12 bg-[#7A2D3A]" />
       {children}
     </div>
   );
@@ -165,7 +168,7 @@ function SectionIntro({
   return (
     <div className="mx-auto mb-12 max-w-3xl lg:mx-0">
       <Eyebrow>{eyebrow}</Eyebrow>
-      <h2 className="text-4xl font-semibold tracking-[-0.04em] text-[#151515] md:text-6xl">
+      <h2 className="text-4xl font-semibold tracking-[-0.04em] text-[#2A2A2A] md:text-6xl">
         {title}
       </h2>
       <p className="mt-6 text-lg leading-8 text-[#6A625C] md:text-xl">{children}</p>
@@ -175,17 +178,17 @@ function SectionIntro({
 
 function TopNav() {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#0B0F12]/88 text-[#FBF7F0] backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#3D4A35]/88 text-[#FAF7F0] backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
         <a href="#hero" className="flex items-center gap-3" aria-label="Miojo home">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-[#0B0F12] text-sm font-semibold text-[#1FB6B8]">
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-[#3D4A35] text-sm font-semibold text-[#C9A86C]">
             M
           </span>
-          <span className="font-semibold tracking-[-0.03em] text-[#FBF7F0]">Miojo</span>
+          <span className="font-semibold tracking-[-0.03em] text-[#FAF7F0]">Miojo</span>
         </a>
-        <nav className="hidden items-center gap-6 text-sm text-white/58 lg:flex">
+        <nav className="hidden items-center gap-6 text-sm text-[#6F665E] lg:flex">
           {nav.map(([label, id]) => (
-            <a key={id} href={`#${id}`} className="transition hover:text-[#1FB6B8]">
+            <a key={id} href={`#${id}`} className="transition hover:text-[#8B2E3B]">
               {label}
             </a>
           ))}
@@ -214,16 +217,16 @@ function HeroObject() {
     <div className="dark-stage relative overflow-hidden rounded-[2rem] p-5 md:p-7">
       <div className="relative z-10">
         <div className="mb-5 flex items-center justify-between">
-          <span className="mono text-[10px] uppercase tracking-[0.2em] text-[#1FB6B8]">
+          <span className="mono text-[10px] uppercase tracking-[0.2em] text-[#8B2E3B]">
             Founder operating layer
           </span>
-          <span className="rounded-full border border-[#1FB6B8]/30 bg-[#1FB6B8]/10 px-3 py-1 text-xs text-[#A5F3F4]">
+          <span className="rounded-full border border-[#8B2E3B]/30 bg-[#8B2E3B]/10 px-3 py-1 text-xs text-[#F5F2E8]">
             human-led
           </span>
         </div>
         <div className="rounded-3xl border border-white/12 bg-white/[0.06] p-5">
           <div className="flex items-center gap-3">
-            <Crown className="h-5 w-5 text-[#E68A3F]" />
+            <Crown className="h-5 w-5 text-[#C9A86C]" />
             <div>
               <div className="text-lg font-semibold">Ciarra / Miojo</div>
               <div className="text-sm text-white/55">taste, timing, relationships, standards</div>
@@ -231,9 +234,9 @@ function HeroObject() {
           </div>
         </div>
         <svg className="my-2 h-14 w-full" viewBox="0 0 480 70" aria-hidden="true">
-          <path className="trace-line" d="M240 0 C240 28 92 34 92 70" fill="none" stroke="#1FB6B8" strokeWidth="1.4" />
-          <path className="trace-line" d="M240 0 C240 28 240 34 240 70" fill="none" stroke="#1FB6B8" strokeWidth="1.4" />
-          <path className="trace-line" d="M240 0 C240 28 388 34 388 70" fill="none" stroke="#1FB6B8" strokeWidth="1.4" />
+          <path className="trace-line" d="M240 0 C240 28 92 34 92 70" fill="none" stroke="#8B2E3B" strokeWidth="1.4" />
+          <path className="trace-line" d="M240 0 C240 28 240 34 240 70" fill="none" stroke="#8B2E3B" strokeWidth="1.4" />
+          <path className="trace-line" d="M240 0 C240 28 388 34 388 70" fill="none" stroke="#8B2E3B" strokeWidth="1.4" />
         </svg>
         <div className="grid gap-3 md:grid-cols-3">
           {[
@@ -247,7 +250,7 @@ function HeroObject() {
             </div>
           ))}
         </div>
-        <div className="mt-5 rounded-2xl border border-[#E68A3F]/30 bg-[#E68A3F]/10 p-4 text-sm text-[#F1C38A]">
+        <div className="mt-5 rounded-2xl border border-[#C9A86C]/30 bg-[#C9A86C]/10 p-4 text-sm text-[#D4B57A]">
           AI does not create the taste. It remembers, coordinates, scans, and compresses execution around the founder’s standard.
         </div>
       </div>
@@ -257,17 +260,17 @@ function HeroObject() {
 
 function HeroSection() {
   return (
-    <section id="hero" className="deck-shell deck-grid anchor-offset section-shell px-5 pb-20 pt-32 md:px-8 md:pb-28 md:pt-40">
+    <section id="hero" className="miojo-editorial-hero anchor-offset section-shell px-5 pb-20 pt-32 md:px-8 md:pb-28 md:pt-40">
       <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="reveal">
           <Eyebrow>Miojo Venture Studio</Eyebrow>
-          <h1 className="max-w-5xl text-5xl font-semibold leading-[0.95] tracking-[-0.055em] text-[#FBF7F0] md:text-7xl lg:text-8xl">
-            A founder-led lifestyle platform built for <span className="fraunces text-[#1FB6B8]">taste with leverage.</span>
+          <h1 className="max-w-5xl text-5xl font-semibold leading-[0.95] tracking-[-0.055em] text-[#2A2A2A] md:text-7xl lg:text-8xl">
+            A founder-led lifestyle platform built for <span className="fraunces text-[#8B2E3B]">taste with leverage.</span>
           </h1>
-          <p className="mt-8 max-w-2xl text-xl leading-8 text-white/72 md:text-2xl md:leading-9">
+          <p className="mt-8 max-w-2xl text-xl leading-8 text-[#3F3B35] md:text-2xl md:leading-9">
             Miojo turns Ciarra Pardo’s proven cultural judgment into repeatable enterprise value across community, commerce, wellness, hospitality, and brand creation.
           </p>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-white/58">
+          <p className="mt-5 max-w-2xl text-lg leading-8 text-[#6F665E]">
             AI is the operating layer. It scales memory, timing, signal, and execution without replacing the founder’s authorship.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -279,7 +282,7 @@ function HeroSection() {
             <a href="#platform" className="deck-button inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition">
               View the platform model <ArrowRight className="h-4 w-4" />
             </a>
-            <a href="#os-proof" className="inline-flex items-center justify-center gap-2 rounded-full border border-white/14 bg-white/8 px-6 py-3 text-sm font-semibold text-[#FBF7F0] transition hover:border-[#1FB6B8]/50 hover:bg-white/12">
+            <a href="#os-proof" className="inline-flex items-center justify-center gap-2 rounded-full border border-[#2A2A2A]/15 bg-white/50 px-6 py-3 text-sm font-semibold text-[#2A2A2A] transition hover:border-[#8B2E3B]/50 hover:bg-white/80">
               Explore Miojo OS proof
             </a>
           </div>
@@ -300,16 +303,16 @@ function FounderProofSection() {
         <div className="grid gap-5 md:grid-cols-3">
           {founderProof.map((item) => (
             <div key={item.label} className="paper-card motion-card view-reveal rounded-[1.75rem] p-7">
-              <div className="text-5xl font-semibold tracking-[-0.05em] text-[#151515]">{item.value}</div>
-              <div className="mono mt-5 text-xs uppercase tracking-[0.18em] text-[#0F7A7C]">{item.label}</div>
+              <div className="text-5xl font-semibold tracking-[-0.05em] text-[#2A2A2A]">{item.value}</div>
+              <div className="mono mt-5 text-xs uppercase tracking-[0.18em] text-[#7A2D3A]">{item.label}</div>
               <p className="mt-4 leading-7 text-[#6A625C]">{item.detail}</p>
             </div>
           ))}
         </div>
-        <div className="mt-6 rounded-[2rem] bg-[#151515] p-8 text-[#FBF7F0] md:p-10">
+        <div className="mt-6 rounded-[2rem] bg-[#2A2A2A] p-8 text-[#FAF7F0] md:p-10">
           <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
             <div>
-              <div className="mono text-xs uppercase tracking-[0.18em] text-[#E68A3F]">The Fenty lesson</div>
+              <div className="mono text-xs uppercase tracking-[0.18em] text-[#C9A86C]">The Fenty lesson</div>
               <h3 className="mt-4 text-3xl font-semibold tracking-[-0.04em] md:text-5xl">Cultural authority is valuable when it can become execution.</h3>
             </div>
             <p className="text-lg leading-8 text-white/70">
@@ -331,12 +334,12 @@ function PlatformThesisSection() {
         </SectionIntro>
         <div className="grid gap-5 lg:grid-cols-4">
           {pillars.map((pillar) => (
-            <article key={pillar.name} className="group motion-card view-reveal rounded-[1.75rem] border border-black/10 bg-[#FBF7F0] p-6">
-              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0B0F12] text-[#1FB6B8]">
+            <article key={pillar.name} className="group motion-card view-reveal rounded-[1.75rem] border border-black/10 bg-[#FAF7F0] p-6">
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#3D4A35] text-[#8B2E3B]">
                 <Layers3 className="h-5 w-5" />
               </div>
               <h3 className="text-2xl font-semibold tracking-[-0.04em]">{pillar.name}</h3>
-              <div className="mt-2 text-sm font-medium text-[#0F7A7C]">{pillar.role}</div>
+              <div className="mt-2 text-sm font-medium text-[#7A2D3A]">{pillar.role}</div>
               <p className="mt-5 leading-7 text-[#6A625C]">{pillar.note}</p>
               <div className="mt-6 flex flex-wrap gap-2">
                 {pillar.domains.map((domain) => (
@@ -353,6 +356,42 @@ function PlatformThesisSection() {
   );
 }
 
+
+function InteractiveMiojoMap() {
+  const nodes = [
+    { name: "Mi Ojo", x: "50%", y: "18%", copy: "Creative strategy, brand language, launch taste." },
+    { name: "Beauty Days", x: "78%", y: "42%", copy: "Community, sponsors, members, signal." },
+    { name: "Peppers & Bellies", x: "67%", y: "76%", copy: "Food, hosting, commerce, intimate culture." },
+    { name: "Residences", x: "30%", y: "76%", copy: "Wellness, stays, retreats, place." },
+    { name: "Venture Studio", x: "20%", y: "42%", copy: "Capital, services, operator network." },
+  ];
+  const [active, setActive] = useState(0);
+  const a = nodes[active];
+  return (
+    <div className="miojo-map relative min-h-[560px] overflow-hidden rounded-[2rem] border border-[#3D4A35]/20 bg-[#FAF7F0] p-5 md:p-8">
+      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 900 560" aria-hidden="true">
+        <circle className="map-ring" cx="450" cy="280" r="176" />
+        <circle className="map-ring muted" cx="450" cy="280" r="104" />
+        {nodes.map((n, i) => <line key={n.name} className={i === active ? "map-line active" : "map-line"} x1="450" y1="280" x2={parseFloat(n.x)*9} y2={parseFloat(n.y)*5.6} />)}
+      </svg>
+      <div className="absolute left-1/2 top-1/2 z-10 grid h-40 w-40 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-[#C9A86C]/60 bg-[#3D4A35] text-center text-[#FAF7F0] shadow-2xl">
+        <div><div className="font-serif text-2xl font-black tracking-[-0.04em]">Miojo</div><div className="mono mt-2 text-[10px] uppercase tracking-[0.16em] text-[#D4B57A]">shared engine</div></div>
+      </div>
+      {nodes.map((node, i) => (
+        <button key={node.name} type="button" onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)} onClick={() => setActive(i)}
+          className={`map-node ${active === i ? "active" : ""}`} style={{ left: node.x, top: node.y }}>
+          <span className="mono text-[10px] uppercase tracking-[0.14em]">0{i+1}</span><span>{node.name}</span>
+        </button>
+      ))}
+      <div className="absolute bottom-6 left-6 right-6 z-20 rounded-3xl border border-[#3D4A35]/15 bg-white/82 p-5 backdrop-blur">
+        <div className="mono text-[10px] uppercase tracking-[0.18em] text-[#8B2E3B]">active overlap</div>
+        <h3 className="mt-2 font-serif text-3xl font-black tracking-[-0.04em] text-[#2A2A2A]">{a.name}</h3>
+        <p className="mt-2 text-sm leading-6 text-[#6F665E]">{a.copy} Each node feeds the same founder-led audience, relationship, and commercial memory.</p>
+      </div>
+    </div>
+  );
+}
+
 function InterlockMapSection() {
   return (
     <section id="interlock" className="section-shell px-5 py-20 md:px-8 md:py-28">
@@ -361,46 +400,13 @@ function InterlockMapSection() {
           The platform is not a holding company. It is a shared engine where community, commerce, culture, wellness, hospitality, and creative strategy feed one another.
         </SectionIntro>
         <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="asset-motion dark-stage relative min-h-[540px] overflow-hidden rounded-[2rem] p-4 md:p-6">
-            <Image
-              src="/assets/generated/miojo-interlock.svg"
-              alt="Miojo interlock map showing one platform across creative, community, commerce, hospitality, wellness and culture"
-              width={960}
-              height={640}
-              className="relative z-10 h-full min-h-[500px] w-full rounded-[1.5rem] object-cover"
-            />
-            <span className="orbit-node left-[49%] top-[49%]" aria-hidden />
-            <span className="orbit-node left-[74%] top-[37%]" style={{ animationDelay: "0.6s" }} aria-hidden />
-            <span className="orbit-node left-[28%] top-[37%]" style={{ animationDelay: "1.2s" }} aria-hidden />
-            <div className="hidden">
-              <div className="absolute h-[360px] w-[360px] rounded-full border border-[#1FB6B8]/30 md:h-[430px] md:w-[430px]" />
-              <div className="absolute h-[250px] w-[250px] rounded-full border border-[#E68A3F]/20 md:h-[310px] md:w-[310px]" />
-              {[
-                ["Creative", "top-[8%] left-[38%]"],
-                ["Community", "top-[30%] right-[5%]"],
-                ["Commerce", "bottom-[16%] right-[12%]"],
-                ["Hospitality", "bottom-[10%] left-[10%]"],
-                ["Wellness", "top-[30%] left-[4%]"],
-                ["Culture", "bottom-[43%] left-[38%]"],
-              ].map(([label, pos]) => (
-                <div key={label} className={`absolute ${pos} rounded-full border border-white/10 bg-white/[0.07] px-4 py-2 text-sm text-white/70`}>
-                  {label}
-                </div>
-              ))}
-              <div className="relative z-20 grid h-40 w-40 place-items-center rounded-full border border-[#1FB6B8]/40 bg-[#0B0F12]/90 text-center shadow-2xl shadow-[#1FB6B8]/10">
-                <div>
-                  <div className="text-xl font-semibold">Ciarra / Miojo</div>
-                  <div className="mono mt-2 text-[10px] uppercase tracking-[0.16em] text-[#1FB6B8]">shared engine</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <InteractiveMiojoMap />
           <div className="grid content-center gap-4">
             {pillars.map((pillar, index) => (
               <details key={pillar.name} open={index === 0} className="group motion-card rounded-3xl border border-black/10 bg-white/70 p-5 open:bg-white">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
                   <div>
-                    <div className="mono text-[10px] uppercase tracking-[0.18em] text-[#0F7A7C]">0{index + 1} / {pillar.role}</div>
+                    <div className="mono text-[10px] uppercase tracking-[0.18em] text-[#7A2D3A]">0{index + 1} / {pillar.role}</div>
                     <h3 className="mt-2 text-2xl font-semibold tracking-[-0.04em]">{pillar.name}</h3>
                   </div>
                   <ChevronRight className="h-5 w-5 transition group-open:rotate-90" />
@@ -418,7 +424,7 @@ function InterlockMapSection() {
 function WhyNowSection() {
   return (
     <section id="why-now" className="section-shell px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl rounded-[2.5rem] bg-[#ECE4D8] p-7 md:p-12">
+      <div className="mx-auto max-w-7xl rounded-[2.5rem] bg-[#E8E2D3] p-7 md:p-12">
         <SectionIntro eyebrow="04 / why now" title={<>The opportunity is not more content. It is continuity.</>}>
           Modern lifestyle value is moving toward hybrid systems: IRL community, digital memory, premium curation, partner commerce, and AI-enabled operations.
         </SectionIntro>
@@ -432,7 +438,7 @@ function WhyNowSection() {
             const I = Icon as typeof Compass;
             return (
               <div key={title as string} className="rounded-3xl bg-white/70 p-6">
-                <I className="h-6 w-6 text-[#0F7A7C]" />
+                <I className="h-6 w-6 text-[#7A2D3A]" />
                 <h3 className="mt-5 text-xl font-semibold tracking-[-0.03em]">{title as string}</h3>
                 <p className="mt-3 text-sm leading-6 text-[#6A625C]">{text as string}</p>
               </div>
@@ -444,6 +450,31 @@ function WhyNowSection() {
   );
 }
 
+
+function BeautyDaysInteractive() {
+  const [active, setActive] = useState(0);
+  const current = beautyJourney[active];
+  return (
+    <div className="beauty-runway relative overflow-hidden rounded-[1.75rem] border border-[#3D4A35]/15 bg-[#F5F2E8] p-6">
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div>
+          <div className="mono text-[11px] uppercase tracking-[0.18em] text-[#8B2E3B]">live wedge simulator</div>
+          <h3 className="mt-3 font-serif text-4xl font-black tracking-[-0.045em] text-[#2A2A2A]">{current[0]}</h3>
+          <p className="mt-3 max-w-xl text-[#6F665E]">{current[1]}</p>
+        </div>
+        <div className="mono rounded-full border border-[#C9A86C]/50 bg-white/70 px-4 py-2 text-[11px] uppercase tracking-[0.16em] text-[#7A2D3A]">event → platform loop</div>
+      </div>
+      <div className="mt-8 grid gap-3 md:grid-cols-5">
+        {beautyJourney.map(([step], i) => (
+          <button key={step} type="button" onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)} onClick={() => setActive(i)} className={`journey-tab ${active === i ? "active" : ""}`}>
+            <span className="mono text-[10px] uppercase tracking-[0.14em]">0{i+1}</span><span>{step}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function BeautyDaysWedgeSection() {
   return (
     <section id="beauty-days" className="anchor-offset section-shell px-5 py-20 md:px-8 md:py-28">
@@ -452,20 +483,14 @@ function BeautyDaysWedgeSection() {
           It has the strongest bridge between live community, sponsor relevance, membership logic, first-party data, and repeatable year-round engagement.
         </SectionIntro>
         <div className="rounded-[2rem] border border-black/10 bg-white p-5 md:p-8">
-          <Image
-            src="/assets/generated/beauty-days-journey.svg"
-            alt="Beauty Days journey from RSVP to community, sponsor value and platform intelligence"
-            width={960}
-            height={360}
-            className="mb-6 w-full rounded-[1.5rem] border border-black/10"
-          />
-          <div className="grid gap-4 lg:grid-cols-5">
+          <BeautyDaysInteractive />
+          <div className="mt-6 grid gap-4 lg:grid-cols-5">
             {beautyJourney.map(([step, text], index) => (
-              <div key={step} className="progress-step motion-card relative rounded-3xl bg-[#F6F1E8] p-5">
-                <div className="mono text-[11px] uppercase tracking-[0.18em] text-[#0F7A7C]">0{index + 1}</div>
+              <div key={step} className="progress-step motion-card relative rounded-3xl bg-[#F5F2E8] p-5">
+                <div className="mono text-[11px] uppercase tracking-[0.18em] text-[#7A2D3A]">0{index + 1}</div>
                 <h3 className="mt-5 text-2xl font-semibold tracking-[-0.04em]">{step}</h3>
                 <p className="mt-3 text-sm leading-6 text-[#6A625C]">{text}</p>
-                {index < beautyJourney.length - 1 && <ArrowRight className="absolute -right-3 top-1/2 hidden h-6 w-6 text-[#E68A3F] lg:block" />}
+                {index < beautyJourney.length - 1 && <ArrowRight className="absolute -right-3 top-1/2 hidden h-6 w-6 text-[#C9A86C] lg:block" />}
               </div>
             ))}
           </div>
@@ -494,14 +519,14 @@ function OperatingLayerSection() {
             />
             </div>
             <div className="mt-5 grid gap-4">
-              <div className="rounded-3xl border border-[#E68A3F]/30 bg-[#E68A3F]/10 p-5">
+              <div className="rounded-3xl border border-[#C9A86C]/30 bg-[#C9A86C]/10 p-5">
                 <div className="mono text-[10px] uppercase tracking-[0.18em] text-[#9C5A22]">Today</div>
                 <h3 className="mt-3 text-2xl font-semibold">Founder bandwidth is the ceiling.</h3>
                 <p className="mt-3 text-[#6A625C]">Opportunities, partners, events, brands, and decisions converge on one person.</p>
               </div>
-              <div className="flex justify-center"><ArrowRight className="h-7 w-7 rotate-90 text-[#0F7A7C]" /></div>
-              <div className="rounded-3xl border border-[#1FB6B8]/30 bg-[#1FB6B8]/10 p-5">
-                <div className="mono text-[10px] uppercase tracking-[0.18em] text-[#0F7A7C]">With Miojo OS</div>
+              <div className="flex justify-center"><ArrowRight className="h-7 w-7 rotate-90 text-[#7A2D3A]" /></div>
+              <div className="rounded-3xl border border-[#8B2E3B]/30 bg-[#8B2E3B]/10 p-5">
+                <div className="mono text-[10px] uppercase tracking-[0.18em] text-[#7A2D3A]">With Miojo OS</div>
                 <h3 className="mt-3 text-2xl font-semibold">The playbook compounds.</h3>
                 <p className="mt-3 text-[#6A625C]">AI handles context, pattern recognition, scheduling, and synthesis while founder judgment stays in command.</p>
               </div>
@@ -511,7 +536,7 @@ function OperatingLayerSection() {
             <div className="relative z-10">
               <div className="rounded-3xl border border-white/15 bg-white/[0.07] p-5">
                 <div className="flex items-center gap-3">
-                  <Command className="h-5 w-5 text-[#E68A3F]" />
+                  <Command className="h-5 w-5 text-[#C9A86C]" />
                   <div>
                     <h3 className="text-2xl font-semibold">Founder Command</h3>
                     <p className="text-sm text-white/55">human interface + quality standard</p>
@@ -525,13 +550,13 @@ function OperatingLayerSection() {
                     <p className="mt-2 text-sm text-white/55">{crew.subtitle}</p>
                     <div className="mt-4 flex flex-wrap gap-2">
                       {crew.items.map((item) => (
-                        <span key={item} className="mono rounded-full bg-white/10 px-2 py-1 text-[10px] uppercase tracking-[0.12em] text-[#A5F3F4]">{item}</span>
+                        <span key={item} className="mono rounded-full bg-white/10 px-2 py-1 text-[10px] uppercase tracking-[0.12em] text-[#F5F2E8]">{item}</span>
                       ))}
                     </div>
                   </div>
                 ))}
               </div>
-              <div className="mt-5 rounded-3xl border border-[#1FB6B8]/30 bg-[#1FB6B8]/10 p-5 text-sm text-[#A5F3F4]">
+              <div className="mt-5 rounded-3xl border border-[#8B2E3B]/30 bg-[#8B2E3B]/10 p-5 text-sm text-[#F5F2E8]">
                 Human-in-the-loop rule: the system recommends, remembers, and prepares; Ciarra sets the standard and approves what matters.
               </div>
             </div>
@@ -564,13 +589,13 @@ function OrgArchitectureExplorer() {
   ];
 
   return (
-    <div className="mt-8 rounded-[2rem] border border-black/10 bg-[#FBF7F0] p-5 md:p-8">
+    <div className="mt-8 rounded-[2rem] border border-black/10 bg-[#FAF7F0] p-5 md:p-8">
       <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div>
-          <div className="mono text-[11px] uppercase tracking-[0.18em] text-[#0F7A7C]">OrgArchitectureExplorer</div>
+          <div className="mono text-[11px] uppercase tracking-[0.18em] text-[#7A2D3A]">OrgArchitectureExplorer</div>
           <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">Human-led system architecture.</h3>
         </div>
-        <div className="rounded-full border border-[#1FB6B8]/30 bg-[#1FB6B8]/10 px-4 py-2 text-sm text-[#0F7A7C]">
+        <div className="rounded-full border border-[#8B2E3B]/30 bg-[#8B2E3B]/10 px-4 py-2 text-sm text-[#7A2D3A]">
           not a robot org chart
         </div>
       </div>
@@ -580,7 +605,7 @@ function OrgArchitectureExplorer() {
             <div className="mono text-[10px] uppercase tracking-[0.16em] text-[#948B84]">0{index + 1} / {layer.label}</div>
             <h4 className="mt-4 text-xl font-semibold tracking-[-0.03em]">{layer.title}</h4>
             <p className="mt-3 text-sm leading-6 text-[#6A625C]">{layer.text}</p>
-            {index < layers.length - 1 && <ArrowRight className="absolute -right-3 top-1/2 hidden h-6 w-6 text-[#E68A3F] md:block" />}
+            {index < layers.length - 1 && <ArrowRight className="absolute -right-3 top-1/2 hidden h-6 w-6 text-[#C9A86C] md:block" />}
           </div>
         ))}
       </div>
@@ -596,8 +621,8 @@ function FinancialProjectionStoryModule() {
   ];
 
   return (
-    <div className="mt-6 rounded-[1.75rem] border border-[#E68A3F]/30 bg-[#E68A3F]/10 p-6">
-      <div className="mono text-[11px] uppercase tracking-[0.18em] text-[#F1C38A]">FinancialProjectionStoryModule / directional</div>
+    <div className="mt-6 rounded-[1.75rem] border border-[#C9A86C]/30 bg-[#C9A86C]/10 p-6">
+      <div className="mono text-[11px] uppercase tracking-[0.18em] text-[#D4B57A]">FinancialProjectionStoryModule / directional</div>
       <div className="mt-5 grid gap-4 lg:grid-cols-[0.85fr_1.15fr]">
         <div>
           <h3 className="text-3xl font-semibold tracking-[-0.04em] text-white">Growth is staged, not magically assumed.</h3>
@@ -606,7 +631,7 @@ function FinancialProjectionStoryModule() {
         <div className="grid gap-3">
           {drivers.map(([title, text], index) => (
             <div key={title} className="grid grid-cols-[88px_1fr] gap-4 rounded-2xl border border-white/10 bg-white/[0.06] p-4">
-              <div className="mono text-[10px] uppercase tracking-[0.16em] text-[#F1C38A]">stage 0{index + 1}</div>
+              <div className="mono text-[10px] uppercase tracking-[0.16em] text-[#D4B57A]">stage 0{index + 1}</div>
               <div>
                 <div className="font-semibold text-white">{title}</div>
                 <p className="mt-1 text-sm leading-6 text-white/60">{text}</p>
@@ -628,10 +653,10 @@ function DeckAssetLightbox() {
 
   return (
     <div className="mt-8 rounded-[2rem] border border-black/10 bg-white/70 p-6">
-      <div className="mono text-[11px] uppercase tracking-[0.18em] text-[#0F7A7C]">DeckAssetLightbox / inspectable artifacts</div>
+      <div className="mono text-[11px] uppercase tracking-[0.18em] text-[#7A2D3A]">DeckAssetLightbox / inspectable artifacts</div>
       <div className="mt-5 grid gap-4 md:grid-cols-3">
         {assets.map(([title, text]) => (
-          <details key={title} className="group rounded-2xl border border-black/10 bg-[#F6F1E8] p-4 open:bg-white">
+          <details key={title} className="group rounded-2xl border border-black/10 bg-[#F5F2E8] p-4 open:bg-white">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-3">
               <span className="font-semibold">{title}</span>
               <ChevronRight className="h-4 w-4 transition group-open:rotate-90" />
@@ -659,19 +684,19 @@ function MiojoOSProofSection() {
         </SectionIntro>
         <div className="grid gap-5 lg:grid-cols-4">
           {screens.map(([title, text], index) => (
-            <div key={title} className="motion-card rounded-[1.75rem] border border-[#1FB6B8]/25 bg-[#0B0F12] p-4 text-[#FBF7F0] shadow-2xl shadow-black/10">
+            <div key={title} className="motion-card rounded-[1.75rem] border border-[#8B2E3B]/25 bg-[#3D4A35] p-4 text-[#FAF7F0] shadow-2xl shadow-black/10">
               <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
                 <div className="mb-5 flex items-center justify-between">
-                  <span className="h-2 w-2 rounded-full bg-[#1FB6B8]" />
+                  <span className="h-2 w-2 rounded-full bg-[#8B2E3B]" />
                   <span className="mono text-[9px] uppercase tracking-[0.14em] text-white/40">mockup 0{index + 1}</span>
                 </div>
                 <div className="space-y-2">
                   <div className="h-3 w-2/3 rounded-full bg-white/20" />
                   <div className="h-3 w-5/6 rounded-full bg-white/10" />
                   <div className="mt-4 grid grid-cols-3 gap-2">
-                    <div className="h-12 rounded-xl bg-[#1FB6B8]/20" />
+                    <div className="h-12 rounded-xl bg-[#8B2E3B]/20" />
                     <div className="h-12 rounded-xl bg-white/10" />
-                    <div className="h-12 rounded-xl bg-[#E68A3F]/20" />
+                    <div className="h-12 rounded-xl bg-[#C9A86C]/20" />
                   </div>
                   <div className="mt-4 h-20 rounded-xl border border-white/10 bg-white/[0.05]" />
                 </div>
@@ -696,7 +721,7 @@ function RevenueArchitectureSection() {
         <div className="grid gap-4 md:grid-cols-5">
           {revenueLayers.map(([title, text], index) => (
             <div key={title} className="rounded-[1.5rem] border border-black/10 bg-white/70 p-5">
-              <div className="mono text-[10px] uppercase tracking-[0.18em] text-[#0F7A7C]">layer 0{index + 1}</div>
+              <div className="mono text-[10px] uppercase tracking-[0.18em] text-[#7A2D3A]">layer 0{index + 1}</div>
               <h3 className="mt-4 text-xl font-semibold tracking-[-0.03em]">{title}</h3>
               <p className="mt-3 text-sm leading-6 text-[#6A625C]">{text}</p>
             </div>
@@ -710,14 +735,14 @@ function RevenueArchitectureSection() {
 function ExpansionPathSection() {
   return (
     <section id="expansion" className="anchor-offset section-shell px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl rounded-[2.5rem] bg-[#151515] p-7 text-[#FBF7F0] md:p-12">
-        <SectionIntro eyebrow="09 / expansion path" title={<span className="text-[#FBF7F0]">A staged path is what makes the ambition buyable.</span>}>
+      <div className="mx-auto max-w-7xl rounded-[2.5rem] bg-[#2A2A2A] p-7 text-[#FAF7F0] md:p-12">
+        <SectionIntro eyebrow="09 / expansion path" title={<span className="text-[#FAF7F0]">A staged path is what makes the ambition buyable.</span>}>
           <span className="text-white/65">Miojo does not need every pillar to mature at once. It needs a wedge, an operating layer, and a sequence that compounds.</span>
         </SectionIntro>
         <div className="grid gap-4 md:grid-cols-3">
           {expansion.map((item) => (
             <div key={item.phase} className="rounded-[1.75rem] border border-white/10 bg-white/[0.06] p-6">
-              <div className="text-6xl font-semibold tracking-[-0.06em] text-[#1FB6B8]">{item.phase}</div>
+              <div className="text-6xl font-semibold tracking-[-0.06em] text-[#8B2E3B]">{item.phase}</div>
               <h3 className="mt-6 text-2xl font-semibold">{item.title}</h3>
               <p className="mt-4 leading-7 text-white/60">{item.text}</p>
             </div>
@@ -746,7 +771,7 @@ function WhyThisWinsSection() {
             const I = Icon as typeof Gem;
             return (
               <div key={title as string} className="paper-card rounded-[1.75rem] p-6">
-                <I className="h-7 w-7 text-[#0F7A7C]" />
+                <I className="h-7 w-7 text-[#7A2D3A]" />
                 <h3 className="mt-5 text-2xl font-semibold tracking-[-0.04em]">{title as string}</h3>
               </div>
             );
@@ -775,7 +800,7 @@ function SignalsAndProofSection() {
             const I = Icon as typeof BadgeCheck;
             return (
               <div key={title as string} className="rounded-3xl border border-black/10 bg-white/70 p-6">
-                <I className="h-6 w-6 text-[#E68A3F]" />
+                <I className="h-6 w-6 text-[#C9A86C]" />
                 <h3 className="mt-5 text-xl font-semibold">{title as string}</h3>
                 <p className="mt-3 text-sm leading-6 text-[#6A625C]">{text as string}</p>
               </div>
@@ -792,9 +817,9 @@ function ClosingStatementSection() {
   return (
     <section className="section-shell px-5 py-20 md:px-8 md:py-28">
       <div className="mx-auto max-w-5xl text-center">
-        <div className="mono mb-5 text-xs uppercase tracking-[0.18em] text-[#0F7A7C]">12 / closing conviction</div>
+        <div className="mono mb-5 text-xs uppercase tracking-[0.18em] text-[#7A2D3A]">12 / closing conviction</div>
         <h2 className="text-5xl font-semibold leading-[0.98] tracking-[-0.055em] md:text-7xl">
-          Miojo is how a rare founder becomes a <span className="fraunces text-[#0F7A7C]">repeatable platform.</span>
+          Miojo is how a rare founder becomes a <span className="fraunces text-[#7A2D3A]">repeatable platform.</span>
         </h2>
         <p className="mx-auto mt-8 max-w-3xl text-xl leading-9 text-[#6A625C]">
           The company does not become investable because it says AI. It becomes investable because AI helps institutionalize the thing that was already scarce: Ciarra’s taste, timing, memory, relationships, and execution.
@@ -807,10 +832,10 @@ function ClosingStatementSection() {
 function CTASection() {
   return (
     <section id="contact" className="anchor-offset section-shell px-5 pb-20 md:px-8 md:pb-28">
-      <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] bg-[#0B0F12] p-8 text-[#FBF7F0] md:p-12">
+      <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] bg-[#3D4A35] p-8 text-[#FAF7F0] md:p-12">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
           <div>
-            <div className="mono text-xs uppercase tracking-[0.18em] text-[#1FB6B8]">Private investor walkthrough</div>
+            <div className="mono text-xs uppercase tracking-[0.18em] text-[#8B2E3B]">Private investor walkthrough</div>
             <h2 className="mt-5 text-4xl font-semibold tracking-[-0.04em] md:text-6xl">Review the platform model, then walk the operating proof.</h2>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-white/65">
               The next conversation should connect the narrative site, Miojo OS demo, and Beauty Days wedge into one investor-ready story.
@@ -818,10 +843,10 @@ function CTASection() {
           </div>
           <div className="rounded-3xl border border-white/10 bg-white/[0.06] p-6">
             <div className="flex items-center gap-3">
-              <Store className="h-5 w-5 text-[#E68A3F]" />
+              <Store className="h-5 w-5 text-[#C9A86C]" />
               <span className="font-semibold">Prepared for strategic backers</span>
             </div>
-            <a href="mailto:team@pharos.systems?subject=Miojo%20platform%20walkthrough" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#E68A3F] px-6 py-3 text-sm font-semibold text-[#0B0F12] transition hover:bg-[#F1C38A]">
+            <a href="mailto:team@pharos.systems?subject=Miojo%20platform%20walkthrough" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#C9A86C] px-6 py-3 text-sm font-semibold text-[#3D4A35] transition hover:bg-[#D4B57A]">
               Request walkthrough <ArrowRight className="h-4 w-4" />
             </a>
           </div>

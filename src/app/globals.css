@@ -384,3 +384,18 @@ body[data-modal-open="true"] { overflow: hidden; }
 .peppers-detail div:not(.kicker) { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
 .peppers-detail span { border:1px solid rgba(245,241,232,.18); color:var(--peach); padding:10px 12px; text-transform:uppercase; letter-spacing:.12em; font-size:10px; font-weight:900; }
 @media (max-width:760px) { .peppers-context { grid-template-columns:1fr; } }
+
+/* Hotfix 6: founder section gets deliberate deck-style typed animation */
+.founder-proof-section { overflow:hidden; }
+.founder-typed-title h2 { display:block; }
+.type-stack-line { display:block; overflow:hidden; white-space:nowrap; width:0; max-width:max-content; border-right:3px solid transparent; animation:type-stack 540ms steps(var(--chars)) var(--delay) forwards, type-caret 540ms steps(1) var(--delay); }
+.type-stack-line:nth-child(5) { border-right-color:var(--terracotta); }
+.typed-caption { opacity:0; transform:translateY(8px); animation:caption-in 560ms ease 2.7s forwards; }
+.portrait-reveal { opacity:0; clip-path:inset(0 100% 0 0); animation:portrait-wipe 950ms cubic-bezier(.2,.85,.35,1) .18s forwards; }
+.portrait-reveal img { transform:scale(1.035); animation:portrait-settle 1200ms cubic-bezier(.2,.85,.35,1) .18s forwards; }
+@keyframes type-stack { to { width:calc(var(--chars) * .64em); } }
+@keyframes type-caret { 0%,100% { border-right-color:transparent; } 50% { border-right-color:var(--terracotta); } }
+@keyframes caption-in { to { opacity:1; transform:translateY(0); } }
+@keyframes portrait-wipe { to { opacity:1; clip-path:inset(0 0 0 0); } }
+@keyframes portrait-settle { to { transform:scale(1); } }
+@media (max-width:760px) { .type-stack-line { white-space:normal; width:auto; animation:none; border-right:0; } .typed-caption, .portrait-reveal, .portrait-reveal img { animation:none; opacity:1; clip-path:none; transform:none; } }

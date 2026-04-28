@@ -175,24 +175,24 @@ function SectionIntro({
 
 function TopNav() {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-black/10 bg-[#F6F1E8]/82 backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#0B0F12]/88 text-[#FBF7F0] backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
         <a href="#hero" className="flex items-center gap-3" aria-label="Miojo home">
           <span className="grid h-9 w-9 place-items-center rounded-full bg-[#0B0F12] text-sm font-semibold text-[#1FB6B8]">
             M
           </span>
-          <span className="font-semibold tracking-[-0.03em]">Miojo</span>
+          <span className="font-semibold tracking-[-0.03em] text-[#FBF7F0]">Miojo</span>
         </a>
-        <nav className="hidden items-center gap-6 text-sm text-[#6A625C] lg:flex">
+        <nav className="hidden items-center gap-6 text-sm text-white/58 lg:flex">
           {nav.map(([label, id]) => (
-            <a key={id} href={`#${id}`} className="transition hover:text-[#151515]">
+            <a key={id} href={`#${id}`} className="transition hover:text-[#1FB6B8]">
               {label}
             </a>
           ))}
         </nav>
         <a
           href="#contact"
-          className="rounded-full bg-[#151515] px-4 py-2 text-sm font-medium text-[#FBF7F0] transition hover:bg-[#0F7A7C]"
+          className="deck-button rounded-full px-4 py-2 text-sm font-semibold transition"
         >
           Request walkthrough
         </a>
@@ -257,17 +257,17 @@ function HeroObject() {
 
 function HeroSection() {
   return (
-    <section id="hero" className="anchor-offset section-shell px-5 pb-20 pt-32 md:px-8 md:pb-28 md:pt-40">
+    <section id="hero" className="deck-shell deck-grid anchor-offset section-shell px-5 pb-20 pt-32 md:px-8 md:pb-28 md:pt-40">
       <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="reveal">
-          <Eyebrow>Miojo × Pharos</Eyebrow>
-          <h1 className="max-w-5xl text-5xl font-semibold leading-[0.95] tracking-[-0.055em] text-[#151515] md:text-7xl lg:text-8xl">
-            A founder-led lifestyle platform built for <span className="fraunces text-[#0F7A7C]">taste with leverage.</span>
+          <Eyebrow>Miojo Venture Studio</Eyebrow>
+          <h1 className="max-w-5xl text-5xl font-semibold leading-[0.95] tracking-[-0.055em] text-[#FBF7F0] md:text-7xl lg:text-8xl">
+            A founder-led lifestyle platform built for <span className="fraunces text-[#1FB6B8]">taste with leverage.</span>
           </h1>
-          <p className="mt-8 max-w-2xl text-xl leading-8 text-[#5F574F] md:text-2xl md:leading-9">
+          <p className="mt-8 max-w-2xl text-xl leading-8 text-white/72 md:text-2xl md:leading-9">
             Miojo turns Ciarra Pardo’s proven cultural judgment into repeatable enterprise value across community, commerce, wellness, hospitality, and brand creation.
           </p>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-[#6A625C]">
+          <p className="mt-5 max-w-2xl text-lg leading-8 text-white/58">
             AI is the operating layer. It scales memory, timing, signal, and execution without replacing the founder’s authorship.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -276,10 +276,10 @@ function HeroSection() {
             <ProofChip>human in command</ProofChip>
           </div>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <a href="#platform" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#151515] px-6 py-3 text-sm font-semibold text-[#FBF7F0] transition hover:bg-[#0F7A7C]">
+            <a href="#platform" className="deck-button inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition">
               View the platform model <ArrowRight className="h-4 w-4" />
             </a>
-            <a href="#os-proof" className="inline-flex items-center justify-center gap-2 rounded-full border border-black/10 bg-white/60 px-6 py-3 text-sm font-semibold text-[#151515] transition hover:bg-white">
+            <a href="#os-proof" className="inline-flex items-center justify-center gap-2 rounded-full border border-white/14 bg-white/8 px-6 py-3 text-sm font-semibold text-[#FBF7F0] transition hover:border-[#1FB6B8]/50 hover:bg-white/12">
               Explore Miojo OS proof
             </a>
           </div>
@@ -299,7 +299,7 @@ function FounderProofSection() {
         </SectionIntro>
         <div className="grid gap-5 md:grid-cols-3">
           {founderProof.map((item) => (
-            <div key={item.label} className="paper-card rounded-[1.75rem] p-7">
+            <div key={item.label} className="paper-card motion-card view-reveal rounded-[1.75rem] p-7">
               <div className="text-5xl font-semibold tracking-[-0.05em] text-[#151515]">{item.value}</div>
               <div className="mono mt-5 text-xs uppercase tracking-[0.18em] text-[#0F7A7C]">{item.label}</div>
               <p className="mt-4 leading-7 text-[#6A625C]">{item.detail}</p>
@@ -331,7 +331,7 @@ function PlatformThesisSection() {
         </SectionIntro>
         <div className="grid gap-5 lg:grid-cols-4">
           {pillars.map((pillar) => (
-            <article key={pillar.name} className="group rounded-[1.75rem] border border-black/10 bg-[#FBF7F0] p-6 transition hover:-translate-y-1 hover:bg-white hover:shadow-2xl hover:shadow-black/10">
+            <article key={pillar.name} className="group motion-card view-reveal rounded-[1.75rem] border border-black/10 bg-[#FBF7F0] p-6">
               <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0B0F12] text-[#1FB6B8]">
                 <Layers3 className="h-5 w-5" />
               </div>
@@ -361,7 +361,7 @@ function InterlockMapSection() {
           The platform is not a holding company. It is a shared engine where community, commerce, culture, wellness, hospitality, and creative strategy feed one another.
         </SectionIntro>
         <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="dark-stage relative min-h-[540px] overflow-hidden rounded-[2rem] p-4 md:p-6">
+          <div className="asset-motion dark-stage relative min-h-[540px] overflow-hidden rounded-[2rem] p-4 md:p-6">
             <Image
               src="/assets/generated/miojo-interlock.svg"
               alt="Miojo interlock map showing one platform across creative, community, commerce, hospitality, wellness and culture"
@@ -369,6 +369,9 @@ function InterlockMapSection() {
               height={640}
               className="relative z-10 h-full min-h-[500px] w-full rounded-[1.5rem] object-cover"
             />
+            <span className="orbit-node left-[49%] top-[49%]" aria-hidden />
+            <span className="orbit-node left-[74%] top-[37%]" style={{ animationDelay: "0.6s" }} aria-hidden />
+            <span className="orbit-node left-[28%] top-[37%]" style={{ animationDelay: "1.2s" }} aria-hidden />
             <div className="hidden">
               <div className="absolute h-[360px] w-[360px] rounded-full border border-[#1FB6B8]/30 md:h-[430px] md:w-[430px]" />
               <div className="absolute h-[250px] w-[250px] rounded-full border border-[#E68A3F]/20 md:h-[310px] md:w-[310px]" />
@@ -394,7 +397,7 @@ function InterlockMapSection() {
           </div>
           <div className="grid content-center gap-4">
             {pillars.map((pillar, index) => (
-              <details key={pillar.name} open={index === 0} className="group rounded-3xl border border-black/10 bg-white/70 p-5 open:bg-white">
+              <details key={pillar.name} open={index === 0} className="group motion-card rounded-3xl border border-black/10 bg-white/70 p-5 open:bg-white">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
                   <div>
                     <div className="mono text-[10px] uppercase tracking-[0.18em] text-[#0F7A7C]">0{index + 1} / {pillar.role}</div>
@@ -458,7 +461,7 @@ function BeautyDaysWedgeSection() {
           />
           <div className="grid gap-4 lg:grid-cols-5">
             {beautyJourney.map(([step, text], index) => (
-              <div key={step} className="relative rounded-3xl bg-[#F6F1E8] p-5">
+              <div key={step} className="progress-step motion-card relative rounded-3xl bg-[#F6F1E8] p-5">
                 <div className="mono text-[11px] uppercase tracking-[0.18em] text-[#0F7A7C]">0{index + 1}</div>
                 <h3 className="mt-5 text-2xl font-semibold tracking-[-0.04em]">{step}</h3>
                 <p className="mt-3 text-sm leading-6 text-[#6A625C]">{text}</p>
@@ -481,14 +484,16 @@ function OperatingLayerSection() {
         </SectionIntro>
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="paper-card rounded-[2rem] p-6 md:p-8">
+            <div className="asset-motion rounded-[1.5rem]">
             <Image
               src="/assets/generated/founder-bottleneck.svg"
               alt="Founder bottleneck transforming into a human-led operating layer"
               width={960}
               height={520}
-              className="mb-5 w-full rounded-[1.5rem] border border-black/10"
+              className="mb-0 w-full rounded-[1.5rem] border border-black/10"
             />
-            <div className="grid gap-4">
+            </div>
+            <div className="mt-5 grid gap-4">
               <div className="rounded-3xl border border-[#E68A3F]/30 bg-[#E68A3F]/10 p-5">
                 <div className="mono text-[10px] uppercase tracking-[0.18em] text-[#9C5A22]">Today</div>
                 <h3 className="mt-3 text-2xl font-semibold">Founder bandwidth is the ceiling.</h3>
@@ -515,7 +520,7 @@ function OperatingLayerSection() {
               </div>
               <div className="mt-4 grid gap-4 md:grid-cols-2">
                 {crews.map((crew) => (
-                  <div key={crew.title} className="rounded-3xl border border-white/10 bg-white/[0.055] p-5">
+                  <div key={crew.title} className="signal-sweep rounded-3xl border border-white/10 bg-white/[0.055] p-5">
                     <h4 className="font-semibold text-white">{crew.title}</h4>
                     <p className="mt-2 text-sm text-white/55">{crew.subtitle}</p>
                     <div className="mt-4 flex flex-wrap gap-2">
@@ -654,7 +659,7 @@ function MiojoOSProofSection() {
         </SectionIntro>
         <div className="grid gap-5 lg:grid-cols-4">
           {screens.map(([title, text], index) => (
-            <div key={title} className="rounded-[1.75rem] border border-black/10 bg-[#0B0F12] p-4 text-[#FBF7F0] shadow-2xl shadow-black/10">
+            <div key={title} className="motion-card rounded-[1.75rem] border border-[#1FB6B8]/25 bg-[#0B0F12] p-4 text-[#FBF7F0] shadow-2xl shadow-black/10">
               <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
                 <div className="mb-5 flex items-center justify-between">
                   <span className="h-2 w-2 rounded-full bg-[#1FB6B8]" />

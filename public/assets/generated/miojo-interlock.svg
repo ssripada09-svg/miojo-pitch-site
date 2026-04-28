@@ -1,4 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="title desc">
+<style>
+@media (prefers-reduced-motion:no-preference){
+  line,path{stroke-dasharray:720;stroke-dashoffset:720;animation:draw 2.2s cubic-bezier(.2,.85,.35,1) forwards}
+  circle{transform-box:fill-box;transform-origin:center;animation:pulse 4s ease-in-out infinite}
+  rect{transition:filter .3s ease, opacity .3s ease}
+  svg:hover rect{filter:saturate(1.08)}
+  text{animation:fade .9s ease both}
+}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.018);opacity:.88}}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+</style>
+
 <title id="title">Miojo interlock map</title>
 <desc id="desc">Miojo shown as one founder-led platform with multiple expressions across creative, community, wellness, hospitality, commerce and culture.</desc>
 <defs><radialGradient id="g" cx="50%" cy="50%" r="55%"><stop stop-color="#1FB6B8" stop-opacity=".22"/><stop offset="1" stop-color="#0B0F12" stop-opacity="0"/></radialGradient></defs>

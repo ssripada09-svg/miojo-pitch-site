@@ -434,3 +434,12 @@ body[data-modal-open="true"] { overflow: hidden; }
 .residence-image { position:relative; min-height:620px; overflow:hidden; background:var(--forest); }
 .residence-image::after { content:""; position:absolute; inset:0; background:linear-gradient(0deg, rgba(31,44,32,.18), transparent 50%); pointer-events:none; }
 @media (max-width:980px) { .residence-image { min-height:420px; } }
+
+/* Hotfix 10: prevent founder typed headline from clipping */
+.founder-typed-title { max-width:100%; overflow:hidden; }
+.founder-typed-title h2 { font-size:clamp(52px,6.1vw,96px); line-height:.88; max-width:100%; }
+.founder-typed-title .type-stack-line { max-width:100%; width:100%; white-space:normal; border-right:0; animation:founder-line-in 680ms cubic-bezier(.2,.85,.35,1) var(--delay) both; }
+.founder-typed-title .type-stack-line::after { content:""; display:inline-block; width:2px; height:.76em; margin-left:8px; background:var(--terracotta); vertical-align:-.06em; animation:caret 650ms steps(1) infinite; }
+@keyframes founder-line-in { from { opacity:0; clip-path:inset(0 100% 0 0); transform:translateY(8px); } to { opacity:1; clip-path:inset(0 0 0 0); transform:translateY(0); } }
+@media (max-width:1180px) { .founder-typed-title h2 { font-size:clamp(46px,7vw,78px); } }
+@media (max-width:980px) { .founder-typed-title h2 { font-size:clamp(42px,11vw,72px); } }

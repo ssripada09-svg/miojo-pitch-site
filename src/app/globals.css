@@ -420,3 +420,17 @@ body[data-modal-open="true"] { overflow: hidden; }
 .eco-node { line-height:1.25; }
 @media (max-width:1180px) { .ecosystem-explorer { grid-template-columns:1fr; } .ecosystem-detail { min-height:auto; } .ecosystem-detail h3 { font-size:clamp(42px,9vw,68px); overflow-wrap:normal; } }
 @media (max-width:700px) { .ecosystem-detail h3 { overflow-wrap:anywhere; font-size:clamp(34px,12vw,54px); } }
+
+/* Hotfix 9: narrative order for four ventures */
+.venture-deep-section { padding-top:clamp(72px,8vw,112px); padding-bottom:clamp(72px,8vw,112px); }
+.venture-deep-grid { align-items:stretch; }
+.venture-proof-list { display:grid; gap:1px; background:rgba(45,58,45,.16); margin-top:28px; }
+.venture-proof-list > div { background:var(--cream-2); padding:22px; }
+.venture-proof-list span { display:block; color:var(--olive); text-transform:uppercase; letter-spacing:.14em; font-size:10px; font-weight:950; margin-bottom:10px; }
+.venture-proof-list p { margin:0; color:var(--muted); line-height:1.6; }
+.venture-quote-card { background:var(--forest); color:var(--cream); padding:clamp(28px,4vw,44px); display:flex; flex-direction:column; justify-content:center; }
+.venture-quote-card h3 { font-family:Georgia,serif; font-size:clamp(42px,5vw,76px); line-height:.9; letter-spacing:-.055em; margin:24px 0 16px; }
+.venture-quote-card p { color:rgba(245,241,232,.72); font-size:18px; line-height:1.65; }
+.residence-image { position:relative; min-height:620px; overflow:hidden; background:var(--forest); }
+.residence-image::after { content:""; position:absolute; inset:0; background:linear-gradient(0deg, rgba(31,44,32,.18), transparent 50%); pointer-events:none; }
+@media (max-width:980px) { .residence-image { min-height:420px; } }

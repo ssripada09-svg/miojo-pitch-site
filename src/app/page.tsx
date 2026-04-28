@@ -2,855 +2,225 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import {
-  ArrowRight,
-  BadgeCheck,
-  Brain,
-  Building2,
-  ChevronRight,
-  CircleDollarSign,
-  Command,
-  Compass,
-  Crown,
-  Gem,
-  HeartHandshake,
-  Layers3,
-  LineChart,
-  Map,
-  RadioTower,
-  Store,
-  Users,
-  Waves,
-} from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 
-type Pillar = {
-  name: string;
-  role: string;
-  domains: string[];
-  note: string;
-};
-
-type Proof = {
-  value: string;
-  label: string;
-  detail: string;
-};
-
-const nav = [
-  ["Overview", "hero"],
-  ["Platform", "platform"],
-  ["Beauty Days", "beauty-days"],
-  ["Operating Layer", "operating-layer"],
-  ["OS Proof", "os-proof"],
-  ["Expansion", "expansion"],
+const ventures = [
+  { numeral: "ONE", name: "MI OJO", line: "my eye", role: "Creative house & venture studio", launch: "Founded 2019", copy: "Brand strategy, cultural IP, creative direction, celebrity partnerships, and venture equity in the next wave of fashion, beauty, and lifestyle." },
+  { numeral: "TWO", name: "PEPPERS & BELI", line: "a culinary love letter", role: "Restaurant · culinary brand · CPG", launch: "Opening 2026", copy: "Grandmother’s recipes meet Michelin craft: restaurant, membership dining room, farm supply chain, and Beli’s Pantry." },
+  { numeral: "THREE", name: "BEAUTYDAYS", line: "the gathering", role: "Beauty & culture festival", launch: "Year one 2026", copy: "A multi-day beauty and culture festival engineered to convert mass attention into portfolio distribution." },
+  { numeral: "FOUR", name: "THE RESIDENCES", line: "a home that holds you", role: "Wellness-forward living", launch: "Phase 2028+", copy: "Curated travel properties, members-only retreats, and eventually owned real estate around rituals that heal." },
 ];
 
-const pillars: Pillar[] = [
-  {
-    name: "Mi Ojo",
-    role: "Creative and strategic brain",
-    domains: ["brand", "story", "advisory"],
-    note: "Turns Ciarra’s taste into briefs, launches, partner narratives, and future brand IP.",
-  },
-  {
-    name: "Beauty Days",
-    role: "Community and membership wedge",
-    domains: ["beauty", "community", "sponsors"],
-    note: "The clearest near-term proof that Miojo can aggregate audience, partners, data, and repeat engagement.",
-  },
-  {
-    name: "Peppers & Bellies",
-    role: "Food, hosting, culture",
-    domains: ["food", "hospitality", "editorial commerce"],
-    note: "Extends the platform into table culture, culinary programming, products, and intimate experiences.",
-  },
-  {
-    name: "Residences",
-    role: "Physical embodiment",
-    domains: ["wellness", "place", "stays"],
-    note: "Makes the Miojo world bookable, spatial, and premium through retreats, residencies, and wellness stays.",
-  },
+const stats = [
+  ["20+", "Years creative leadership"],
+  ["4", "Fenty brands built at LVMH scale"],
+  ["$3B+", "Brand value created"],
+  ["3", "Unicorns in the making"],
 ];
 
-const founderProof: Proof[] = [
-  {
-    value: "Fenty",
-    label: "Proven playbook",
-    detail: "Founder-grade experience around celebrity, product, retail, culture, and launch execution.",
-  },
-  {
-    value: "$2.3T",
-    label: "Market context",
-    detail: "Beauty and fashion are massive, but the infrastructure for taste-led venture building remains underbuilt.",
-  },
-  {
-    value: "1 engine",
-    label: "Many expressions",
-    detail: "Miojo is not a bundle of ideas. It is a shared cultural, community, and commercial operating system.",
-  },
+const journey = [
+  ["1979", "Bronx, NY", "Heritage learned at the kitchen table."],
+  ["Early 2000s", "Wall Street", "Morgan Stanley Dean Witter; walks away to chase culture."],
+  ["Mid 2000s", "Def Jam · Island", "Shapes visual language for Jay-Z, Eminem, Usher, The Killers."],
+  ["2007", "Rihanna", "Art Director, Good Girl Gone Bad — the inflection point."],
+  ["2014–19", "Fenty Corp", "Four category-defining brands at LVMH scale."],
+  ["2026", "Ciarra Pardo Co.", "Four ventures, one creative engine."],
 ];
 
-const beautyJourney = [
-  ["RSVP", "Live community demand enters the platform."],
-  ["Attend", "IRL energy becomes trust, memory, and social proof."],
-  ["Activate", "Sponsors, creators, and members create measurable touchpoints."],
-  ["Retain", "Event energy becomes app, membership, content, and city-circle behavior."],
-  ["Compound", "Data informs brands, partnerships, products, and future experiences."],
+const beautyPillars = ["Skin & Hair", "Wellness", "Nutrition", "Mental Health", "Community", "Culture", "Innovation"];
+const zones = [
+  ["Wellness Wing", "Diagnostics, breathwork domes, IV bars, infrared saunas, practitioner rooms.", "Upgraded wellness pass + title sponsor"],
+  ["The BeautyLab", "Skin-tech diagnostics, AI colour-matching, biotech reveals, device previews.", "R&D sponsorships + consumer data"],
+  ["The Marketplace", "125+ curated beauty, wellness, and lifestyle brands with limited drops.", "Vendor fees + rev share"],
+  ["Dining Oasis", "Peppers & Beli residency, heritage chefs, longevity-menu tastings.", "Ticketed dinners + sponsor"],
+  ["BeautyDays Chats", "Founders, physicians, artists and athletes on a programmed stage.", "Media rights + syndication"],
+  ["Innovation Hub", "Juried showcase for what beauty, wellness, and technology become next.", "Pipeline + venture signal"],
 ];
 
-const crews = [
-  {
-    title: "Founder Command",
-    subtitle: "Keeps the whole ecosystem coherent.",
-    items: ["daily brief", "relationship memory", "decision log"],
-  },
-  {
-    title: "Cultural Signal",
-    subtitle: "Turns timing into repeatable advantage.",
-    items: ["trend radar", "whitespace", "collaborator scans"],
-  },
-  {
-    title: "Brand Studio",
-    subtitle: "Accelerates story, positioning, and launches.",
-    items: ["narrative", "launch briefs", "partner language"],
-  },
-  {
-    title: "Community OS",
-    subtitle: "Converts Beauty Days into year-round intelligence.",
-    items: ["segments", "sponsor fit", "retention loops"],
-  },
+const frameworks = [
+  "Customer Lens", "List · Offer · Creative", "Three Products", "Offer Stacking", "Sales Funnel", "Lead Flow", "Content Phases", "Content That Sells", "Retention Hooks", "Launch Runbook",
 ];
 
-const revenueLayers = [
-  ["Community", "memberships, city circles, programming access"],
-  ["Partners", "sponsors, brand worlds, Beauty Days extensions"],
-  ["Commerce", "curated kits, affiliate, future owned products"],
-  ["Experiences", "salons, dinners, retreats, wellness stays"],
-  ["IP", "new brands, content formats, data-informed launches"],
+const revenue = [
+  ["Peppers & Beli", "$5.8M", "Restaurant · Membership"],
+  ["BeautyDays", "$2.3M", "Festival · Sponsorship"],
+  ["Mi Ojo", "$2.1M", "Creative · Venture Equity"],
+  ["Beli’s Pantry", "$1.5M", "CPG · DTC & Retail"],
 ];
 
-const expansion = [
-  {
-    phase: "01",
-    title: "Prove the wedge",
-    text: "Beauty Days becomes the first measurable community, sponsor, and membership loop.",
-  },
-  {
-    phase: "02",
-    title: "Install the operating layer",
-    text: "Miojo OS captures context, signals, briefs, partner memory, and execution standards.",
-  },
-  {
-    phase: "03",
-    title: "Extend the platform",
-    text: "Mi Ojo, food, wellness stays, commerce, and partner programming compound around the same audience intelligence.",
-  },
+const traction = [
+  ["Mi Ojo · Active", "7", "Active client retainers"],
+  ["Peppers & Beli · Pre-launch", "2,400", "Membership waitlist"],
+  ["BeautyDays · Year Zero", "28", "Brand LOIs signed"],
+  ["Owned channels", "1.2M+", "Social reach"],
 ];
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
+function Kicker({ left, right }: { left: string; right?: string }) {
   return (
-    <div className="mono mb-5 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7A2D3A]">
-      <span className="h-px w-12 bg-[#7A2D3A]" />
-      {children}
+    <div className="kicker">
+      <span>{left}</span>
+      {right && <span>{right}</span>}
     </div>
   );
 }
 
-function SectionIntro({
-  eyebrow,
-  title,
-  children,
-}: {
-  eyebrow: string;
-  title: React.ReactNode;
-  children: React.ReactNode;
-}) {
+function SectionTitle({ eyebrow, title, italic, children }: { eyebrow: string; title: string; italic?: string; children?: React.ReactNode }) {
   return (
-    <div className="mx-auto mb-12 max-w-3xl lg:mx-0">
-      <Eyebrow>{eyebrow}</Eyebrow>
-      <h2 className="text-4xl font-semibold tracking-[-0.04em] text-[#2A2A2A] md:text-6xl">
-        {title}
-      </h2>
-      <p className="mt-6 text-lg leading-8 text-[#6A625C] md:text-xl">{children}</p>
+    <div className="section-title reveal-on-view">
+      <Kicker left={eyebrow} />
+      <h2>{title}</h2>
+      {italic && <p className="deck-italic">{italic}</p>}
+      {children && <p className="lede">{children}</p>}
     </div>
   );
 }
 
-function TopNav() {
+function Hero() {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#3D4A35]/88 text-[#FAF7F0] backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
-        <a href="#hero" className="flex items-center gap-3" aria-label="Miojo home">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-[#3D4A35] text-sm font-semibold text-[#C9A86C]">
-            M
-          </span>
-          <span className="font-semibold tracking-[-0.03em] text-[#FAF7F0]">Miojo</span>
-        </a>
-        <nav className="hidden items-center gap-6 text-sm text-[#6F665E] lg:flex">
-          {nav.map(([label, id]) => (
-            <a key={id} href={`#${id}`} className="transition hover:text-[#8B2E3B]">
-              {label}
-            </a>
-          ))}
-        </nav>
-        <a
-          href="#contact"
-          className="deck-button rounded-full px-4 py-2 text-sm font-semibold transition"
-        >
-          Request walkthrough
-        </a>
-      </div>
-    </header>
-  );
-}
-
-function ProofChip({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="mono rounded-full border border-black/10 bg-white/70 px-3 py-2 text-[11px] uppercase tracking-[0.14em] text-[#2F2B28]">
-      {children}
-    </span>
-  );
-}
-
-function HeroObject() {
-  return (
-    <div className="dark-stage relative overflow-hidden rounded-[2rem] p-5 md:p-7">
-      <div className="relative z-10">
-        <div className="mb-5 flex items-center justify-between">
-          <span className="mono text-[10px] uppercase tracking-[0.2em] text-[#8B2E3B]">
-            Founder operating layer
-          </span>
-          <span className="rounded-full border border-[#8B2E3B]/30 bg-[#8B2E3B]/10 px-3 py-1 text-xs text-[#F5F2E8]">
-            human-led
-          </span>
-        </div>
-        <div className="rounded-3xl border border-white/12 bg-white/[0.06] p-5">
-          <div className="flex items-center gap-3">
-            <Crown className="h-5 w-5 text-[#C9A86C]" />
-            <div>
-              <div className="text-lg font-semibold">Ciarra / Miojo</div>
-              <div className="text-sm text-white/55">taste, timing, relationships, standards</div>
-            </div>
-          </div>
-        </div>
-        <svg className="my-2 h-14 w-full" viewBox="0 0 480 70" aria-hidden="true">
-          <path className="trace-line" d="M240 0 C240 28 92 34 92 70" fill="none" stroke="#8B2E3B" strokeWidth="1.4" />
-          <path className="trace-line" d="M240 0 C240 28 240 34 240 70" fill="none" stroke="#8B2E3B" strokeWidth="1.4" />
-          <path className="trace-line" d="M240 0 C240 28 388 34 388 70" fill="none" stroke="#8B2E3B" strokeWidth="1.4" />
-        </svg>
-        <div className="grid gap-3 md:grid-cols-3">
-          {[
-            ["Mi Ojo", "story + launch"],
-            ["Beauty Days", "community + sponsors"],
-            ["Residences", "place + wellness"],
-          ].map(([title, text]) => (
-            <div key={title} className="rounded-2xl border border-white/10 bg-white/[0.055] p-4">
-              <div className="font-medium">{title}</div>
-              <div className="mt-2 text-xs uppercase tracking-[0.16em] text-white/45">{text}</div>
-            </div>
-          ))}
-        </div>
-        <div className="mt-5 rounded-2xl border border-[#C9A86C]/30 bg-[#C9A86C]/10 p-4 text-sm text-[#D4B57A]">
-          AI does not create the taste. It remembers, coordinates, scans, and compresses execution around the founder’s standard.
+    <section id="top" className="split-hero">
+      <div className="hero-copy reveal-on-view">
+        <Kicker left="CIARRA PARDO CO · 2026" right="CONFIDENTIAL" />
+        <p className="deck-italic hero-italic">Heritage is medicine.</p>
+        <h1>CIARRA<br />PARDO</h1>
+        <p className="source-code">the ecosystem’s source code</p>
+        <p className="hero-sub">MI OJO · PEPPERS & BELI · BEAUTYDAYS · THE RESIDENCES</p>
+        <div className="hero-actions">
+          <a href="#portfolio" className="gold-btn">Explore the ecosystem <ArrowRight size={16} /></a>
+          <a href="#financials" className="line-btn">View investor model</a>
         </div>
       </div>
-    </div>
-  );
-}
-
-function HeroSection() {
-  return (
-    <section id="hero" className="miojo-editorial-hero anchor-offset section-shell px-5 pb-20 pt-32 md:px-8 md:pb-28 md:pt-40">
-      <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-        <div className="reveal">
-          <Eyebrow>Miojo Venture Studio</Eyebrow>
-          <h1 className="max-w-5xl text-5xl font-semibold leading-[0.95] tracking-[-0.055em] text-[#2A2A2A] md:text-7xl lg:text-8xl">
-            A founder-led lifestyle platform built for <span className="fraunces text-[#8B2E3B]">taste with leverage.</span>
-          </h1>
-          <p className="mt-8 max-w-2xl text-xl leading-8 text-[#3F3B35] md:text-2xl md:leading-9">
-            Miojo turns Ciarra Pardo’s proven cultural judgment into repeatable enterprise value across community, commerce, wellness, hospitality, and brand creation.
-          </p>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-[#6F665E]">
-            AI is the operating layer. It scales memory, timing, signal, and execution without replacing the founder’s authorship.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <ProofChip>founder first</ProofChip>
-            <ProofChip>one platform</ProofChip>
-            <ProofChip>human in command</ProofChip>
-          </div>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <a href="#platform" className="deck-button inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition">
-              View the platform model <ArrowRight className="h-4 w-4" />
-            </a>
-            <a href="#os-proof" className="inline-flex items-center justify-center gap-2 rounded-full border border-[#2A2A2A]/15 bg-white/50 px-6 py-3 text-sm font-semibold text-[#2A2A2A] transition hover:border-[#8B2E3B]/50 hover:bg-white/80">
-              Explore Miojo OS proof
-            </a>
-          </div>
-        </div>
-        <HeroObject />
+      <div className="hero-image">
+        <Image src="/assets/canonical/page01_img02.png" alt="Ciarra Pardo black and white founder portrait" fill priority sizes="(max-width: 900px) 100vw, 44vw" className="object-cover grayscale" />
       </div>
     </section>
   );
 }
 
-function FounderProofSection() {
+function TrackRecord() {
   return (
-    <section id="founder" className="section-shell px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
-        <SectionIntro eyebrow="01 / founder proof" title={<>The scarce asset is not the software. It is Ciarra’s judgment.</>}>
-          The site starts with proof because family offices do not underwrite abstract AI. They underwrite rare operators with taste, network, timing, and execution credibility.
-        </SectionIntro>
-        <div className="grid gap-5 md:grid-cols-3">
-          {founderProof.map((item) => (
-            <div key={item.label} className="paper-card motion-card view-reveal rounded-[1.75rem] p-7">
-              <div className="text-5xl font-semibold tracking-[-0.05em] text-[#2A2A2A]">{item.value}</div>
-              <div className="mono mt-5 text-xs uppercase tracking-[0.18em] text-[#7A2D3A]">{item.label}</div>
-              <p className="mt-4 leading-7 text-[#6A625C]">{item.detail}</p>
-            </div>
-          ))}
+    <section id="founder" className="cream-section">
+      <div className="shell two-col founder-grid">
+        <div className="portrait-panel reveal-on-view">
+          <Image src="/assets/canonical/page02_img01.png" alt="Ciarra Pardo portrait" fill sizes="(max-width: 900px) 100vw, 38vw" className="object-cover grayscale" />
         </div>
-        <div className="mt-6 rounded-[2rem] bg-[#2A2A2A] p-8 text-[#FAF7F0] md:p-10">
-          <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
-            <div>
-              <div className="mono text-xs uppercase tracking-[0.18em] text-[#C9A86C]">The Fenty lesson</div>
-              <h3 className="mt-4 text-3xl font-semibold tracking-[-0.04em] md:text-5xl">Cultural authority is valuable when it can become execution.</h3>
-            </div>
-            <p className="text-lg leading-8 text-white/70">
-              Miojo is not asking investors to believe in taste as an abstraction. It is positioning Ciarra’s proven brand-building pattern as the basis for a broader platform: one that can remember, coordinate, launch, measure, and compound.
-            </p>
+        <div>
+          <SectionTitle eyebrow="02 · The Founder" title="TWENTY YEARS BUILDING THE BRANDS THE CULTURE QUOTES BACK." italic="institutional rigor, cultural fluency.">
+            Born in the Bronx to Puerto Rican parents, Ciarra has spent twenty years at the intersection of culture, commerce, and creative authority — from Def Jam and Rihanna to Fenty Corp and the next portfolio.
+          </SectionTitle>
+          <div className="stat-grid">
+            {stats.map(([num, label], i) => <div className="stat-card reveal-on-view" style={{ animationDelay: `${i * 90}ms` }} key={label}><strong>{num}</strong><span>{label}</span></div>)}
           </div>
+          <blockquote>“In 2021 I was diagnosed with Stage 3C triple-negative breast cancer. I beat it. Everything after is built in that clarity.”</blockquote>
         </div>
       </div>
     </section>
   );
 }
 
-function PlatformThesisSection() {
+function Journey() {
   return (
-    <section id="platform" className="anchor-offset section-shell px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
-        <SectionIntro eyebrow="02 / platform thesis" title={<>One engine, multiple expressions.</>}>
-          The connective tissue is not category adjacency. It is founder taste, cultural signal, community formation, storytelling, and commercialization infrastructure.
-        </SectionIntro>
-        <div className="grid gap-5 lg:grid-cols-4">
-          {pillars.map((pillar) => (
-            <article key={pillar.name} className="group motion-card view-reveal rounded-[1.75rem] border border-black/10 bg-[#FAF7F0] p-6">
-              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#3D4A35] text-[#8B2E3B]">
-                <Layers3 className="h-5 w-5" />
-              </div>
-              <h3 className="text-2xl font-semibold tracking-[-0.04em]">{pillar.name}</h3>
-              <div className="mt-2 text-sm font-medium text-[#7A2D3A]">{pillar.role}</div>
-              <p className="mt-5 leading-7 text-[#6A625C]">{pillar.note}</p>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {pillar.domains.map((domain) => (
-                  <span key={domain} className="mono rounded-full border border-black/10 px-2.5 py-1 text-[10px] uppercase tracking-[0.12em] text-[#6A625C]">
-                    {domain}
-                  </span>
-                ))}
-              </div>
-            </article>
-          ))}
+    <section className="forest-section">
+      <div className="shell">
+        <SectionTitle eyebrow="04 · The Journey" title="FROM BRONX KITCHEN TABLES TO THE FENTY BLUEPRINT." italic="Every chapter trained the next." />
+        <div className="timeline">
+          {journey.map(([year, place, copy], i) => <div className="timeline-item reveal-on-view" key={year} style={{ animationDelay: `${i * 80}ms` }}><span className="dot" /><strong>{year}</strong><b>{place}</b><p>{copy}</p></div>)}
         </div>
       </div>
     </section>
   );
 }
 
-
-function InteractiveMiojoMap() {
-  const nodes = [
-    { name: "Mi Ojo", x: "50%", y: "18%", copy: "Creative strategy, brand language, launch taste." },
-    { name: "Beauty Days", x: "78%", y: "42%", copy: "Community, sponsors, members, signal." },
-    { name: "Peppers & Bellies", x: "67%", y: "76%", copy: "Food, hosting, commerce, intimate culture." },
-    { name: "Residences", x: "30%", y: "76%", copy: "Wellness, stays, retreats, place." },
-    { name: "Venture Studio", x: "20%", y: "42%", copy: "Capital, services, operator network." },
-  ];
+function Portfolio() {
   const [active, setActive] = useState(0);
-  const a = nodes[active];
   return (
-    <div className="miojo-map relative min-h-[560px] overflow-hidden rounded-[2rem] border border-[#3D4A35]/20 bg-[#FAF7F0] p-5 md:p-8">
-      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 900 560" aria-hidden="true">
-        <circle className="map-ring" cx="450" cy="280" r="176" />
-        <circle className="map-ring muted" cx="450" cy="280" r="104" />
-        {nodes.map((n, i) => <line key={n.name} className={i === active ? "map-line active" : "map-line"} x1="450" y1="280" x2={parseFloat(n.x)*9} y2={parseFloat(n.y)*5.6} />)}
-      </svg>
-      <div className="absolute left-1/2 top-1/2 z-10 grid h-40 w-40 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-[#C9A86C]/60 bg-[#3D4A35] text-center text-[#FAF7F0] shadow-2xl">
-        <div><div className="font-serif text-2xl font-black tracking-[-0.04em]">Miojo</div><div className="mono mt-2 text-[10px] uppercase tracking-[0.16em] text-[#D4B57A]">shared engine</div></div>
+    <section id="portfolio" className="cream-section">
+      <div className="shell">
+        <SectionTitle eyebrow="05 · The Portfolio" title="FOUR VENTURES. ONE CREATIVE ENGINE." italic="Every brand inherits Fenty’s institutional rigor.">
+          Shared audience. Shared supply chain. Shared creative direction. Every dollar invested amplifies across all four.
+        </SectionTitle>
+        <div className="venture-grid">
+          {ventures.map((v, i) => <button className={`venture-card reveal-on-view ${active === i ? "active" : ""}`} onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)} onClick={() => setActive(i)} key={v.name}><span>{v.numeral}</span><h3>{v.name}</h3><em>{v.line}</em><b>{v.role}</b><p>{v.copy}</p><small>{v.launch}</small></button>)}
+        </div>
+        <div className="active-venture"><strong>{ventures[active].name}</strong><span>{ventures[active].copy}</span></div>
       </div>
-      {nodes.map((node, i) => (
-        <button key={node.name} type="button" onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)} onClick={() => setActive(i)}
-          className={`map-node ${active === i ? "active" : ""}`} style={{ left: node.x, top: node.y }}>
-          <span className="mono text-[10px] uppercase tracking-[0.14em]">0{i+1}</span><span>{node.name}</span>
-        </button>
-      ))}
-      <div className="absolute bottom-6 left-6 right-6 z-20 rounded-3xl border border-[#3D4A35]/15 bg-white/82 p-5 backdrop-blur">
-        <div className="mono text-[10px] uppercase tracking-[0.18em] text-[#8B2E3B]">active overlap</div>
-        <h3 className="mt-2 font-serif text-3xl font-black tracking-[-0.04em] text-[#2A2A2A]">{a.name}</h3>
-        <p className="mt-2 text-sm leading-6 text-[#6F665E]">{a.copy} Each node feeds the same founder-led audience, relationship, and commercial memory.</p>
-      </div>
-    </div>
+    </section>
   );
 }
 
-function InterlockMapSection() {
+function Peppers() {
   return (
-    <section id="interlock" className="section-shell px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
-        <SectionIntro eyebrow="03 / interlock map" title={<>Miojo becomes legible when the overlaps are visible.</>}>
-          The platform is not a holding company. It is a shared engine where community, commerce, culture, wellness, hospitality, and creative strategy feed one another.
-        </SectionIntro>
-        <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-          <InteractiveMiojoMap />
-          <div className="grid content-center gap-4">
-            {pillars.map((pillar, index) => (
-              <details key={pillar.name} open={index === 0} className="group motion-card rounded-3xl border border-black/10 bg-white/70 p-5 open:bg-white">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
-                  <div>
-                    <div className="mono text-[10px] uppercase tracking-[0.18em] text-[#7A2D3A]">0{index + 1} / {pillar.role}</div>
-                    <h3 className="mt-2 text-2xl font-semibold tracking-[-0.04em]">{pillar.name}</h3>
-                  </div>
-                  <ChevronRight className="h-5 w-5 transition group-open:rotate-90" />
-                </summary>
-                <p className="mt-4 leading-7 text-[#6A625C]">{pillar.note}</p>
-              </details>
-            ))}
-          </div>
+    <section className="cream-section image-story">
+      <div className="shell">
+        <SectionTitle eyebrow="08 · Farm to Pantry" title="ONE SUPPLY CHAIN. THREE REVENUE STREAMS." italic="Sweetwater grows it. Peppers plates it. Beli’s jars it." />
+        <div className="image-triptych">
+          {["SOURCE", "SERVE", "SCALE"].map((label, i) => <div className="trip-card reveal-on-view" key={label}><Image src={`/assets/canonical/page10_img0${i + 1}.jpg`} alt={label} width={1344} height={768} /><span>I{ i === 0 ? "" : i === 1 ? "I" : "II" } · {label}</span><p>{i === 0 ? "Regenerative farm supplies heirloom peppers, herbs, and produce." : i === 1 ? "Flagship restaurant and membership dining room; every night a living campaign." : "Artisanal sauces, oils, preserves and spice blends sold in-restaurant, DTC, and retail."}</p></div>)}
         </div>
       </div>
     </section>
   );
 }
 
-function WhyNowSection() {
-  return (
-    <section id="why-now" className="section-shell px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl rounded-[2.5rem] bg-[#E8E2D3] p-7 md:p-12">
-        <SectionIntro eyebrow="04 / why now" title={<>The opportunity is not more content. It is continuity.</>}>
-          Modern lifestyle value is moving toward hybrid systems: IRL community, digital memory, premium curation, partner commerce, and AI-enabled operations.
-        </SectionIntro>
-        <div className="grid gap-4 md:grid-cols-4">
-          {[
-            [Compass, "Founder timing", "A proven operator can now turn personal playbook into company infrastructure."],
-            [Users, "Community appetite", "Premium audiences want belonging, not only products."],
-            [RadioTower, "Digital continuity", "Events and experiences need persistent surfaces between moments."],
-            [Brain, "AI leverage", "Memory, signal, and coordination can now scale without flattening taste."],
-          ].map(([Icon, title, text]) => {
-            const I = Icon as typeof Compass;
-            return (
-              <div key={title as string} className="rounded-3xl bg-white/70 p-6">
-                <I className="h-6 w-6 text-[#7A2D3A]" />
-                <h3 className="mt-5 text-xl font-semibold tracking-[-0.03em]">{title as string}</h3>
-                <p className="mt-3 text-sm leading-6 text-[#6A625C]">{text as string}</p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-
-function BeautyDaysInteractive() {
+function BeautyDays() {
   const [active, setActive] = useState(0);
-  const current = beautyJourney[active];
+  const zone = zones[active];
   return (
-    <div className="beauty-runway relative overflow-hidden rounded-[1.75rem] border border-[#3D4A35]/15 bg-[#F5F2E8] p-6">
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+    <section id="beautydays" className="forest-section beauty-section">
+      <div className="shell">
+        <div className="beauty-hero reveal-on-view">
+          <Image src="/assets/canonical/page11_img01.jpg" alt="BeautyDays activation render" fill sizes="100vw" className="object-cover" />
+          <div><Kicker left="09 · BeautyDays" right="The Amplifier" /><h2>BEAUTYDAYS</h2><p className="deck-italic">the gathering</p><p>A multi-day beauty and culture festival engineered to convert mass attention into portfolio distribution.</p></div>
+        </div>
+        <div className="beauty-metrics">
+          {[ ["8,500", "Target attendees"], ["125+", "Brand vendors"], ["$2.3M", "Projected revenue Y1"] ].map(([n,l]) => <div key={l}><strong>{n}</strong><span>{l}</span></div>)}
+        </div>
+        <div className="pillar-row">{beautyPillars.map((p, i) => <span key={p}><b>{["I","II","III","IV","V","VI","VII"][i]}</b>{p}</span>)}</div>
+        <div className="zone-explorer">
+          <div className="zone-tabs">{zones.map((z, i) => <button key={z[0]} onClick={() => setActive(i)} onMouseEnter={() => setActive(i)} className={active === i ? "active" : ""}>ZONE {String(i + 1).padStart(2, "0")}<ChevronRight size={14}/></button>)}</div>
+          <div className="zone-panel"><Kicker left={zone[2]} /><h3>{zone[0]}</h3><p>{zone[1]}</p></div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Ecosystem() {
+  return (
+    <section id="ecosystem" className="cream-section">
+      <div className="shell two-col">
         <div>
-          <div className="mono text-[11px] uppercase tracking-[0.18em] text-[#8B2E3B]">live wedge simulator</div>
-          <h3 className="mt-3 font-serif text-4xl font-black tracking-[-0.045em] text-[#2A2A2A]">{current[0]}</h3>
-          <p className="mt-3 max-w-xl text-[#6F665E]">{current[1]}</p>
+          <SectionTitle eyebrow="11 · Shared Infrastructure" title="FOUR VENTURES. ONE AUDIENCE. ONE CREATIVE ENGINE." italic="Shared infrastructure amplifies every dollar invested." />
+          <div className="ecosystem-list">{["Creative Direction", "Production & IP", "Supply Chain", "Hospitality & Real Estate"].map(x => <span key={x}>{x}</span>)}</div>
         </div>
-        <div className="mono rounded-full border border-[#C9A86C]/50 bg-white/70 px-4 py-2 text-[11px] uppercase tracking-[0.16em] text-[#7A2D3A]">event → platform loop</div>
-      </div>
-      <div className="mt-8 grid gap-3 md:grid-cols-5">
-        {beautyJourney.map(([step], i) => (
-          <button key={step} type="button" onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)} onClick={() => setActive(i)} className={`journey-tab ${active === i ? "active" : ""}`}>
-            <span className="mono text-[10px] uppercase tracking-[0.14em]">0{i+1}</span><span>{step}</span>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function BeautyDaysWedgeSection() {
-  return (
-    <section id="beauty-days" className="anchor-offset section-shell px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
-        <SectionIntro eyebrow="05 / wedge" title={<>Beauty Days is the first platform proof node.</>}>
-          It has the strongest bridge between live community, sponsor relevance, membership logic, first-party data, and repeatable year-round engagement.
-        </SectionIntro>
-        <div className="rounded-[2rem] border border-black/10 bg-white p-5 md:p-8">
-          <BeautyDaysInteractive />
-          <div className="mt-6 grid gap-4 lg:grid-cols-5">
-            {beautyJourney.map(([step, text], index) => (
-              <div key={step} className="progress-step motion-card relative rounded-3xl bg-[#F5F2E8] p-5">
-                <div className="mono text-[11px] uppercase tracking-[0.18em] text-[#7A2D3A]">0{index + 1}</div>
-                <h3 className="mt-5 text-2xl font-semibold tracking-[-0.04em]">{step}</h3>
-                <p className="mt-3 text-sm leading-6 text-[#6A625C]">{text}</p>
-                {index < beautyJourney.length - 1 && <ArrowRight className="absolute -right-3 top-1/2 hidden h-6 w-6 text-[#C9A86C] lg:block" />}
-              </div>
-            ))}
-          </div>
+        <div className="ecosystem-orbit reveal-on-view">
+          <div className="center">MI OJO<br /><em>the engine</em></div>
+          {ventures.slice(1).map((v, i) => <span className={`orbit o${i}`} key={v.name}>{v.name}</span>)}
         </div>
       </div>
     </section>
   );
 }
 
-function OperatingLayerSection() {
+function Blueprint() {
   return (
-    <section id="operating-layer" className="anchor-offset section-shell px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
-        <SectionIntro eyebrow="06 / operating layer" title={<>The bottleneck becomes an operating system.</>}>
-          AI supports the work Ciarra should not have to hold manually: memory, synthesis, signal, coordination, and repeatable execution.
-        </SectionIntro>
-        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="paper-card rounded-[2rem] p-6 md:p-8">
-            <div className="asset-motion rounded-[1.5rem]">
-            <Image
-              src="/assets/generated/founder-bottleneck.svg"
-              alt="Founder bottleneck transforming into a human-led operating layer"
-              width={960}
-              height={520}
-              className="mb-0 w-full rounded-[1.5rem] border border-black/10"
-            />
-            </div>
-            <div className="mt-5 grid gap-4">
-              <div className="rounded-3xl border border-[#C9A86C]/30 bg-[#C9A86C]/10 p-5">
-                <div className="mono text-[10px] uppercase tracking-[0.18em] text-[#9C5A22]">Today</div>
-                <h3 className="mt-3 text-2xl font-semibold">Founder bandwidth is the ceiling.</h3>
-                <p className="mt-3 text-[#6A625C]">Opportunities, partners, events, brands, and decisions converge on one person.</p>
-              </div>
-              <div className="flex justify-center"><ArrowRight className="h-7 w-7 rotate-90 text-[#7A2D3A]" /></div>
-              <div className="rounded-3xl border border-[#8B2E3B]/30 bg-[#8B2E3B]/10 p-5">
-                <div className="mono text-[10px] uppercase tracking-[0.18em] text-[#7A2D3A]">With Miojo OS</div>
-                <h3 className="mt-3 text-2xl font-semibold">The playbook compounds.</h3>
-                <p className="mt-3 text-[#6A625C]">AI handles context, pattern recognition, scheduling, and synthesis while founder judgment stays in command.</p>
-              </div>
-            </div>
-          </div>
-          <div className="dark-stage relative overflow-hidden rounded-[2rem] p-6 md:p-8">
-            <div className="relative z-10">
-              <div className="rounded-3xl border border-white/15 bg-white/[0.07] p-5">
-                <div className="flex items-center gap-3">
-                  <Command className="h-5 w-5 text-[#C9A86C]" />
-                  <div>
-                    <h3 className="text-2xl font-semibold">Founder Command</h3>
-                    <p className="text-sm text-white/55">human interface + quality standard</p>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-4 grid gap-4 md:grid-cols-2">
-                {crews.map((crew) => (
-                  <div key={crew.title} className="signal-sweep rounded-3xl border border-white/10 bg-white/[0.055] p-5">
-                    <h4 className="font-semibold text-white">{crew.title}</h4>
-                    <p className="mt-2 text-sm text-white/55">{crew.subtitle}</p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {crew.items.map((item) => (
-                        <span key={item} className="mono rounded-full bg-white/10 px-2 py-1 text-[10px] uppercase tracking-[0.12em] text-[#F5F2E8]">{item}</span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-5 rounded-3xl border border-[#8B2E3B]/30 bg-[#8B2E3B]/10 p-5 text-sm text-[#F5F2E8]">
-                Human-in-the-loop rule: the system recommends, remembers, and prepares; Ciarra sets the standard and approves what matters.
-              </div>
-            </div>
-          </div>
-        </div>
-        <OrgArchitectureExplorer />
+    <section className="forest-section blueprint-section">
+      <div className="shell">
+        <SectionTitle eyebrow="Blueprint · Operating System" title="SHE DOESN’T COME EMPTY-HANDED." italic="she comes with a system.">
+          Ten frameworks, one operating system — customer, product, marketing, funnel, content, retention and financial discipline proven across twenty years and four nine-figure brands.
+        </SectionTitle>
+        <div className="framework-grid">{frameworks.map((f, i) => <div className="framework-card reveal-on-view" key={f}><span>{String(i + 1).padStart(2, "0")}</span><strong>{f}</strong></div>)}</div>
       </div>
     </section>
   );
 }
 
-
-function OrgArchitectureExplorer() {
-  const layers = [
-    {
-      label: "Founder layer",
-      title: "Ciarra sets the taste standard",
-      text: "Judgment, relationships, cultural timing, and quality control remain human-led.",
-    },
-    {
-      label: "Platform layer",
-      title: "Miojo coordinates the expressions",
-      text: "Mi Ojo, Beauty Days, Peppers & Bellies, and Residences share community, partner memory, and commercial logic.",
-    },
-    {
-      label: "AI-support layer",
-      title: "The operating layer remembers and prepares",
-      text: "AI drafts briefs, scans signals, organizes context, and surfaces recommendations for approval.",
-    },
-  ];
-
+function Financials() {
   return (
-    <div className="mt-8 rounded-[2rem] border border-black/10 bg-[#FAF7F0] p-5 md:p-8">
-      <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-        <div>
-          <div className="mono text-[11px] uppercase tracking-[0.18em] text-[#7A2D3A]">OrgArchitectureExplorer</div>
-          <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">Human-led system architecture.</h3>
-        </div>
-        <div className="rounded-full border border-[#8B2E3B]/30 bg-[#8B2E3B]/10 px-4 py-2 text-sm text-[#7A2D3A]">
-          not a robot org chart
-        </div>
-      </div>
-      <div className="grid gap-4 md:grid-cols-3">
-        {layers.map((layer, index) => (
-          <div key={layer.title} className="relative rounded-[1.5rem] border border-black/10 bg-white p-5">
-            <div className="mono text-[10px] uppercase tracking-[0.16em] text-[#948B84]">0{index + 1} / {layer.label}</div>
-            <h4 className="mt-4 text-xl font-semibold tracking-[-0.03em]">{layer.title}</h4>
-            <p className="mt-3 text-sm leading-6 text-[#6A625C]">{layer.text}</p>
-            {index < layers.length - 1 && <ArrowRight className="absolute -right-3 top-1/2 hidden h-6 w-6 text-[#C9A86C] md:block" />}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function FinancialProjectionStoryModule() {
-  const drivers = [
-    ["Near-term", "Services, events, partner programming, and sponsor extensions create cash-generating proof."],
-    ["Platform layer", "Community data, membership, and Miojo OS workflows make value repeatable across pillars."],
-    ["Owned upside", "Products, hospitality, brand incubation, and IP compound once the audience and operating layer are connected."],
-  ];
-
-  return (
-    <div className="mt-6 rounded-[1.75rem] border border-[#C9A86C]/30 bg-[#C9A86C]/10 p-6">
-      <div className="mono text-[11px] uppercase tracking-[0.18em] text-[#D4B57A]">FinancialProjectionStoryModule / directional</div>
-      <div className="mt-5 grid gap-4 lg:grid-cols-[0.85fr_1.15fr]">
-        <div>
-          <h3 className="text-3xl font-semibold tracking-[-0.04em] text-white">Growth is staged, not magically assumed.</h3>
-          <p className="mt-4 leading-7 text-white/65">If exact projection data is unavailable, the site shows the drivers investors should inspect instead of inventing precise charts.</p>
-        </div>
-        <div className="grid gap-3">
-          {drivers.map(([title, text], index) => (
-            <div key={title} className="grid grid-cols-[88px_1fr] gap-4 rounded-2xl border border-white/10 bg-white/[0.06] p-4">
-              <div className="mono text-[10px] uppercase tracking-[0.16em] text-[#D4B57A]">stage 0{index + 1}</div>
-              <div>
-                <div className="font-semibold text-white">{title}</div>
-                <p className="mt-1 text-sm leading-6 text-white/60">{text}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function DeckAssetLightbox() {
-  const assets = [
-    ["Bottleneck diagram", "Before/after operating leverage translated into a web-native transition."],
-    ["Interlock map", "Pillars and overlap zones rendered as an inspectable ecosystem object."],
-    ["Projection story", "Growth logic shown as staged drivers, not a spreadsheet dump."],
-  ];
-
-  return (
-    <div className="mt-8 rounded-[2rem] border border-black/10 bg-white/70 p-6">
-      <div className="mono text-[11px] uppercase tracking-[0.18em] text-[#7A2D3A]">DeckAssetLightbox / inspectable artifacts</div>
-      <div className="mt-5 grid gap-4 md:grid-cols-3">
-        {assets.map(([title, text]) => (
-          <details key={title} className="group rounded-2xl border border-black/10 bg-[#F5F2E8] p-4 open:bg-white">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-3">
-              <span className="font-semibold">{title}</span>
-              <ChevronRight className="h-4 w-4 transition group-open:rotate-90" />
-            </summary>
-            <p className="mt-3 text-sm leading-6 text-[#6A625C]">{text}</p>
-          </details>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function MiojoOSProofSection() {
-  const screens = [
-    ["Founder Command", "Daily priorities, investor prep, and cross-pillar decisions."],
-    ["Beauty Days OS", "Member cohorts, RSVP flow, sponsor intelligence, city heat."],
-    ["Trend Intelligence", "Signal velocity, opportunity scoring, collaborator watchlists."],
-    ["Interlock View", "One map showing how every pillar reinforces the platform."],
-  ];
-  return (
-    <section id="os-proof" className="anchor-offset section-shell px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
-        <SectionIntro eyebrow="07 / Miojo OS proof" title={<>The operating thesis can become software.</>}>
-          The site does not become the app. It shows enough of Miojo OS to make the operating layer tangible, inspectable, and credible.
-        </SectionIntro>
-        <div className="grid gap-5 lg:grid-cols-4">
-          {screens.map(([title, text], index) => (
-            <div key={title} className="motion-card rounded-[1.75rem] border border-[#8B2E3B]/25 bg-[#3D4A35] p-4 text-[#FAF7F0] shadow-2xl shadow-black/10">
-              <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
-                <div className="mb-5 flex items-center justify-between">
-                  <span className="h-2 w-2 rounded-full bg-[#8B2E3B]" />
-                  <span className="mono text-[9px] uppercase tracking-[0.14em] text-white/40">mockup 0{index + 1}</span>
-                </div>
-                <div className="space-y-2">
-                  <div className="h-3 w-2/3 rounded-full bg-white/20" />
-                  <div className="h-3 w-5/6 rounded-full bg-white/10" />
-                  <div className="mt-4 grid grid-cols-3 gap-2">
-                    <div className="h-12 rounded-xl bg-[#8B2E3B]/20" />
-                    <div className="h-12 rounded-xl bg-white/10" />
-                    <div className="h-12 rounded-xl bg-[#C9A86C]/20" />
-                  </div>
-                  <div className="mt-4 h-20 rounded-xl border border-white/10 bg-white/[0.05]" />
-                </div>
-              </div>
-              <h3 className="mt-5 text-xl font-semibold">{title}</h3>
-              <p className="mt-2 text-sm leading-6 text-white/55">{text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function RevenueArchitectureSection() {
-  return (
-    <section id="revenue" className="section-shell px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
-        <SectionIntro eyebrow="08 / revenue architecture" title={<>Multiple surfaces. One platform logic.</>}>
-          The revenue story should not sound scattered. Each layer becomes stronger when it is connected to the same community, taste, data, and experience engine.
-        </SectionIntro>
-        <div className="grid gap-4 md:grid-cols-5">
-          {revenueLayers.map(([title, text], index) => (
-            <div key={title} className="rounded-[1.5rem] border border-black/10 bg-white/70 p-5">
-              <div className="mono text-[10px] uppercase tracking-[0.18em] text-[#7A2D3A]">layer 0{index + 1}</div>
-              <h3 className="mt-4 text-xl font-semibold tracking-[-0.03em]">{title}</h3>
-              <p className="mt-3 text-sm leading-6 text-[#6A625C]">{text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ExpansionPathSection() {
-  return (
-    <section id="expansion" className="anchor-offset section-shell px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl rounded-[2.5rem] bg-[#2A2A2A] p-7 text-[#FAF7F0] md:p-12">
-        <SectionIntro eyebrow="09 / expansion path" title={<span className="text-[#FAF7F0]">A staged path is what makes the ambition buyable.</span>}>
-          <span className="text-white/65">Miojo does not need every pillar to mature at once. It needs a wedge, an operating layer, and a sequence that compounds.</span>
-        </SectionIntro>
-        <div className="grid gap-4 md:grid-cols-3">
-          {expansion.map((item) => (
-            <div key={item.phase} className="rounded-[1.75rem] border border-white/10 bg-white/[0.06] p-6">
-              <div className="text-6xl font-semibold tracking-[-0.06em] text-[#8B2E3B]">{item.phase}</div>
-              <h3 className="mt-6 text-2xl font-semibold">{item.title}</h3>
-              <p className="mt-4 leading-7 text-white/60">{item.text}</p>
-            </div>
-          ))}
-        </div>
-        <FinancialProjectionStoryModule />
-      </div>
-    </section>
-  );
-}
-
-function WhyThisWinsSection() {
-  return (
-    <section id="why-wins" className="section-shell px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
-        <SectionIntro eyebrow="10 / why this wins" title={<>The edge is the combination.</>}>
-          Celebrity brands can lack infrastructure. Software platforms can lack taste. Lifestyle concepts can lack operating discipline. Miojo sits at the intersection.
-        </SectionIntro>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {[
-            [Gem, "Taste with standards"],
-            [HeartHandshake, "Relationships with memory"],
-            [Waves, "Community with continuity"],
-            [LineChart, "Signals with execution"],
-          ].map(([Icon, title]) => {
-            const I = Icon as typeof Gem;
-            return (
-              <div key={title as string} className="paper-card rounded-[1.75rem] p-6">
-                <I className="h-7 w-7 text-[#7A2D3A]" />
-                <h3 className="mt-5 text-2xl font-semibold tracking-[-0.04em]">{title as string}</h3>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function SignalsAndProofSection() {
-  return (
-    <section id="signals" className="section-shell px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-        <div>
-          <Eyebrow>11 / bounded proof</Eyebrow>
-          <h2 className="text-4xl font-semibold tracking-[-0.04em] md:text-6xl">Proof should clarify, not overwhelm.</h2>
-        </div>
-        <div className="grid gap-4 md:grid-cols-2">
-          {[
-            [BadgeCheck, "Sourced facts", "Founder credibility and existing market context."],
-            [CircleDollarSign, "Directional projections", "Growth logic framed as staged drivers, not fake precision."],
-            [Map, "Platform signals", "City, sponsor, community, and trend data as illustrative proof."],
-            [Building2, "Architecture", "Founder, platform, and AI-support layers shown as one system."],
-          ].map(([Icon, title, text]) => {
-            const I = Icon as typeof BadgeCheck;
-            return (
-              <div key={title as string} className="rounded-3xl border border-black/10 bg-white/70 p-6">
-                <I className="h-6 w-6 text-[#C9A86C]" />
-                <h3 className="mt-5 text-xl font-semibold">{title as string}</h3>
-                <p className="mt-3 text-sm leading-6 text-[#6A625C]">{text as string}</p>
-              </div>
-            );
-          })}
-        </div>
-        <DeckAssetLightbox />
-      </div>
-    </section>
-  );
-}
-
-function ClosingStatementSection() {
-  return (
-    <section className="section-shell px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-5xl text-center">
-        <div className="mono mb-5 text-xs uppercase tracking-[0.18em] text-[#7A2D3A]">12 / closing conviction</div>
-        <h2 className="text-5xl font-semibold leading-[0.98] tracking-[-0.055em] md:text-7xl">
-          Miojo is how a rare founder becomes a <span className="fraunces text-[#7A2D3A]">repeatable platform.</span>
-        </h2>
-        <p className="mx-auto mt-8 max-w-3xl text-xl leading-9 text-[#6A625C]">
-          The company does not become investable because it says AI. It becomes investable because AI helps institutionalize the thing that was already scarce: Ciarra’s taste, timing, memory, relationships, and execution.
-        </p>
-      </div>
-    </section>
-  );
-}
-
-function CTASection() {
-  return (
-    <section id="contact" className="anchor-offset section-shell px-5 pb-20 md:px-8 md:pb-28">
-      <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] bg-[#3D4A35] p-8 text-[#FAF7F0] md:p-12">
-        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-          <div>
-            <div className="mono text-xs uppercase tracking-[0.18em] text-[#8B2E3B]">Private investor walkthrough</div>
-            <h2 className="mt-5 text-4xl font-semibold tracking-[-0.04em] md:text-6xl">Review the platform model, then walk the operating proof.</h2>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/65">
-              The next conversation should connect the narrative site, Miojo OS demo, and Beauty Days wedge into one investor-ready story.
-            </p>
-          </div>
-          <div className="rounded-3xl border border-white/10 bg-white/[0.06] p-6">
-            <div className="flex items-center gap-3">
-              <Store className="h-5 w-5 text-[#C9A86C]" />
-              <span className="font-semibold">Prepared for strategic backers</span>
-            </div>
-            <a href="mailto:team@pharos.systems?subject=Miojo%20platform%20walkthrough" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#C9A86C] px-6 py-3 text-sm font-semibold text-[#3D4A35] transition hover:bg-[#D4B57A]">
-              Request walkthrough <ArrowRight className="h-4 w-4" />
-            </a>
-          </div>
-        </div>
+    <section id="financials" className="cream-section">
+      <div className="shell">
+        <SectionTitle eyebrow="18 · Financials" title="PATH TO $12M REVENUE, BREAKEVEN IN YEAR THREE." italic="Milestone-gated capital. Gross margin discipline inherited from Fenty." />
+        <div className="revenue-bars">{revenue.map(([name, amount, label], i) => <div className="bar-row" key={name}><div><strong>{name}</strong><span>{label}</span></div><div className="bar-track"><span style={{ width: ["100%", "40%", "36%", "26%"][i] }} /></div><b>{amount}</b></div>)}</div>
+        <div className="traction-grid">{traction.map(([k,n,l]) => <div key={k}><span>{k}</span><strong>{n}</strong><p>{l}</p></div>)}</div>
+        <div className="ask-card"><div><Kicker left="19 · The Ask" /><h3>$6.5M SEED · PREFERRED EQUITY.</h3><p>24 months of runway. Four ventures in market. One ecosystem at scale.</p></div><a className="gold-btn" href="mailto:ciarra@miojoco.com">Request meeting <ArrowRight size={16}/></a></div>
       </div>
     </section>
   );
@@ -859,21 +229,16 @@ function CTASection() {
 export default function Home() {
   return (
     <main>
-      <TopNav />
-      <HeroSection />
-      <FounderProofSection />
-      <PlatformThesisSection />
-      <InterlockMapSection />
-      <WhyNowSection />
-      <BeautyDaysWedgeSection />
-      <OperatingLayerSection />
-      <MiojoOSProofSection />
-      <RevenueArchitectureSection />
-      <ExpansionPathSection />
-      <WhyThisWinsSection />
-      <SignalsAndProofSection />
-      <ClosingStatementSection />
-      <CTASection />
+      <nav className="top-nav"><a href="#top">CIARRA PARDO CO</a><div><a href="#founder">Founder</a><a href="#portfolio">Portfolio</a><a href="#beautydays">BeautyDays</a><a href="#ecosystem">Ecosystem</a><a href="#financials">Financials</a></div></nav>
+      <Hero />
+      <TrackRecord />
+      <Journey />
+      <Portfolio />
+      <Peppers />
+      <BeautyDays />
+      <Ecosystem />
+      <Blueprint />
+      <Financials />
     </main>
   );
 }

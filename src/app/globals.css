@@ -410,3 +410,13 @@ body[data-modal-open="true"] { overflow: hidden; }
 @keyframes econ-row-in { to { opacity:1; transform:translateY(0); } }
 @keyframes econ-bar-fill { to { transform:scaleX(1); } }
 @keyframes econ-sheen { to { transform:translateX(120%); } }
+
+/* Hotfix 8: ecosystem explorer formatting — prevent title clipping and rebalance columns */
+.ecosystem-explorer { grid-template-columns:minmax(560px, 1.08fr) minmax(420px, .92fr); }
+.ecosystem-detail { overflow:hidden; justify-content:flex-start; padding:34px 32px; }
+.ecosystem-detail h3 { font-size:clamp(38px,4.2vw,62px); line-height:.92; letter-spacing:-.045em; max-width:100%; overflow-wrap:anywhere; word-break:normal; text-wrap:balance; }
+.ecosystem-detail > p { font-size:17px; }
+.detail-stack { margin-top:24px; }
+.eco-node { line-height:1.25; }
+@media (max-width:1180px) { .ecosystem-explorer { grid-template-columns:1fr; } .ecosystem-detail { min-height:auto; } .ecosystem-detail h3 { font-size:clamp(42px,9vw,68px); overflow-wrap:normal; } }
+@media (max-width:700px) { .ecosystem-detail h3 { overflow-wrap:anywhere; font-size:clamp(34px,12vw,54px); } }

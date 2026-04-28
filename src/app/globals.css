@@ -356,3 +356,16 @@ body[data-modal-open="true"] { overflow: hidden; }
 .ecosystem-flow span { color:var(--forest); }
 @media (max-width:1100px) { .ecosystem-explorer { grid-template-columns:1fr; } .ecosystem-map, .ecosystem-detail { min-height:560px; } }
 @media (max-width:700px) { .ecosystem-map { min-height:720px; } .eco-ring.outer { width:72%; } .eco-ring.inner { width:48%; } .eco-center { width:158px; height:158px; } .eco-center strong { font-size:28px; } .eco-node { min-width:150px; max-width:170px; font-size:10px; padding:13px; } .eco-top { top:7%; } .eco-right { right:4%; top:31%; } .eco-left { left:4%; top:40%; } .eco-midright { right:8%; bottom:20%; } .eco-bottom { bottom:7%; } .ecosystem-detail { min-height:auto; padding:26px; } }
+
+/* Hotfix 4: BeautyDays pillars are real interactive controls */
+.pillar-row button.active { background:var(--gold); color:var(--forest); box-shadow:0 18px 44px rgba(0,0,0,.16); }
+.pillar-row button.active b { color:var(--rust); }
+.pillar-detail { border:1px solid rgba(245,241,232,.16); background:rgba(31,44,32,.54); padding:28px; margin-top:1px; }
+.pillar-detail h3 { margin:18px 0 12px; font-family:Georgia,serif; font-size:clamp(38px,5vw,66px); line-height:.9; letter-spacing:-.05em; color:var(--cream); }
+.pillar-detail > p { max-width:850px; color:rgba(245,241,232,.74); font-size:18px; line-height:1.62; }
+.pillar-detail-grid { display:grid; grid-template-columns:1fr 1fr 1.2fr; gap:1px; background:rgba(245,241,232,.14); margin-top:24px; }
+.pillar-detail-grid > div { background:var(--forest-2); padding:18px; }
+.pillar-detail-grid span { display:block; margin-bottom:12px; color:var(--gold); text-transform:uppercase; letter-spacing:.14em; font-size:10px; font-weight:900; }
+.pillar-detail-grid b { display:block; padding:7px 0; color:var(--peach); text-transform:capitalize; }
+.pillar-detail-grid p { margin:0; color:rgba(245,241,232,.68); line-height:1.55; }
+@media (max-width:900px) { .pillar-detail-grid { grid-template-columns:1fr; } }

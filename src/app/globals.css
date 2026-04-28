@@ -305,3 +305,16 @@ body[data-modal-open="true"] { overflow: hidden; }
 @media (max-width: 1180px) { .market-grid { grid-template-columns:repeat(3,1fr); } .risk-grid { grid-template-columns:repeat(2,1fr); } .pillar-row { grid-template-columns:repeat(4,1fr); } }
 @media (max-width: 760px) { .section-title h2 { font-size:clamp(38px,14vw,64px); } .zone-panel h3, .framework-detail h3, .os-console h3, .tv-console h3 { font-size:clamp(34px,12vw,52px); } .pillar-row, .market-grid, .risk-grid { grid-template-columns:1fr; } .top-nav { padding-top:14px; padding-bottom:14px; } .hero-image { min-height:430px; } .portrait-panel { min-height:480px; } }
 @media (prefers-reduced-motion: reduce) { .tx-word > span, .mask-reveal, .active-panel, .signal-sweep::after, .live-dot::after, .type-line { animation:none !important; transition:none !important; opacity:1 !important; transform:none !important; clip-path:none !important; width:auto !important; border-right:0 !important; } }
+
+/* Hotfix 2: repair Miojo OS panel visibility and TV clipping */
+.os-console, .tv-console { min-height: unset; display:flex; flex-direction:column; }
+.os-active-view { min-height: 210px; padding-top: 18px; }
+.os-title { opacity:1 !important; transform:none !important; clip-path:none !important; display:block !important; color:var(--cream) !important; }
+.os-console .os-tabs { margin-top:auto; }
+.tv-console h3 { font-size:clamp(38px,4.4vw,58px); max-width: 560px; }
+.channel-guide { margin-top:22px; }
+.channel-guide button { min-height:98px; padding:14px; font-size:20px; }
+.channel-guide button span { margin-bottom:10px; }
+.channel-guide button small { margin-top:9px; }
+.tech-grid { align-items:stretch; }
+@media (max-width:1180px) { .tech-grid { grid-template-columns:1fr; } .os-active-view { min-height:auto; } .os-console .os-tabs { margin-top:28px; } }

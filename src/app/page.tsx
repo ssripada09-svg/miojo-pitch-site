@@ -15,6 +15,37 @@ const stats = [["20+", "Years creative leadership"], ["4", "Fenty brands built a
 const journey = [["1979", "Bronx, NY", "Heritage learned at the kitchen table."], ["Early 2000s", "Wall Street", "Morgan Stanley Dean Witter; walks away to chase culture."], ["Mid 2000s", "Def Jam · Island", "Shapes visual language for Jay-Z, Eminem, Usher, The Killers."], ["2007", "Rihanna", "Art Director, Good Girl Gone Bad — the inflection point."], ["2014–19", "Fenty Corp", "Four category-defining brands at LVMH scale."], ["2026", "Ciarra Pardo Co.", "Four ventures, one creative engine."]];
 const beautyPillars = ["Skin & Hair", "Wellness", "Nutrition", "Mental Health", "Community", "Culture", "Innovation"];
 
+
+const peppersFlow = [
+  {
+    label: "SOURCE",
+    numeral: "I",
+    image: "/assets/canonical/page10_img02.jpg",
+    title: "Sweetwater Farm",
+    short: "Regenerative farm supplies heirloom peppers, herbs, and produce.",
+    why: "This gives Peppers & Beli provenance — not just a restaurant menu, but a supply story that can become content, product, hospitality, and retail language.",
+    ecosystem: ["ingredient storytelling", "Pantry product pipeline", "wellness + nutrition programming"],
+  },
+  {
+    label: "SERVE",
+    numeral: "II",
+    image: "/assets/canonical/page10_img01.jpg",
+    title: "Peppers & Beli Flagship",
+    short: "Restaurant and membership dining room; every night a living campaign.",
+    why: "The flagship is the cash-generating proof point: membership, private dinners, cultural rooms, chef programming, and a stage for the broader Miojo world.",
+    ecosystem: ["membership dining", "private events", "BeautyDays dining oasis"],
+  },
+  {
+    label: "SCALE",
+    numeral: "III",
+    image: "/assets/canonical/page10_img03.jpg",
+    title: "Beli’s Pantry",
+    short: "Artisanal sauces, oils, preserves and spice blends sold in-restaurant, DTC, and retail.",
+    why: "Pantry turns heritage into a repeatable product layer — lower-friction commerce that can travel through Miojo TV, BeautyDays, hotels, grocers, and gifting.",
+    ecosystem: ["DTC + retail", "Miojo TV commerce", "hospitality distribution"],
+  },
+];
+
 const beautyPillarDetails = [
   { title: "Skin & Hair", thesis: "The craft side of beauty: formulation, professional technique, texture, shade, hair health, and visible transformation.", programming: ["masterclasses", "diagnostic demos", "founder-led product drops"], sponsor: "Prestige beauty, salons, dermatology, device brands", conversion: "Moves attendees from inspiration into marketplace purchase, partner trials, and Mi Ojo brand pipeline." },
   { title: "Wellness", thesis: "Beauty as recovery and longevity: movement, breathwork, sleep, nervous-system care, contrast and restoration.", programming: ["breathwork domes", "recovery lounges", "longevity scans"], sponsor: "Longevity clinics, recovery tech, supplements, fitness and wellness studios", conversion: "Creates high-value sponsor zones and feeds Residences / retreat demand." },
@@ -210,7 +241,11 @@ function Portfolio() {
   const [active, setActive] = useState(0); const [open, setOpen] = useState(false); const v = ventures[active];
   return <section id="portfolio" className="cream-section"><div className="shell"><SectionTitle eyebrow="05 · The Portfolio" title="FOUR VENTURES. ONE CREATIVE ENGINE." italic="Every brand inherits Fenty’s institutional rigor.">Shared audience. Shared supply chain. Shared creative direction. Every dollar invested amplifies across all four. Click any venture for the deeper investor logic.</SectionTitle><div className="venture-grid">{ventures.map((v, i) => <button className={`venture-card reveal-on-view ${active === i ? "active" : ""}`} onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)} onClick={() => { setActive(i); setOpen(true); }} key={v.name}><span>{v.numeral}</span><h3>{v.name}</h3><em>{v.line}</em><b>{v.role}</b><p>{v.copy}</p><small>{v.launch} · open detail</small></button>)}</div><div key={v.name} className="active-venture active-panel"><strong>{v.name}</strong><span>{v.copy}</span><button onClick={() => setOpen(true)}>Open investor detail <ArrowRight size={14}/></button></div></div><DetailDrawer open={open} onClose={() => setOpen(false)} title={v.name}><p className="drawer-lede">{v.line} — {v.role}</p><ul>{v.detail.map((d) => <li key={d}>{d}</li>)}</ul><div className="drawer-metric"><span>Economics</span><strong>{v.economics}</strong></div></DetailDrawer></section>;
 }
-function Peppers() { return <section className="cream-section image-story"><div className="shell"><SectionTitle eyebrow="08 · Farm to Pantry" title="ONE SUPPLY CHAIN. THREE REVENUE STREAMS." italic="Sweetwater grows it. Peppers plates it. Beli’s jars it." /><div className="image-triptych">{["SOURCE", "SERVE", "SCALE"].map((label, i) => <button className="trip-card reveal-on-view" key={label}><Image src={`/assets/canonical/page10_img0${i + 1}.jpg`} alt={label} width={1344} height={768} /><span>{["I", "II", "III"][i]} · {label}</span><p>{i === 0 ? "Regenerative farm supplies heirloom peppers, herbs, and produce." : i === 1 ? "Flagship restaurant and membership dining room; every night a living campaign." : "Artisanal sauces, oils, preserves and spice blends sold in-restaurant, DTC, and retail."}</p></button>)}</div></div></section>; }
+function Peppers() {
+  const [active, setActive] = useState(1);
+  const item = peppersFlow[active];
+  return <section className="cream-section image-story peppers-section"><div className="shell"><SectionTitle eyebrow="08 · Revenue Core" title="PEPPERS & BELI TURNS HERITAGE INTO CASH FLOW." italic="Source it. Serve it. Scale it.">This is not a random restaurant slide. It is the ecosystem’s revenue core: a heritage dining room, a membership product, a content set, a BeautyDays activation layer, and a pantry/retail pipeline that can travel beyond one location.</SectionTitle><div className="peppers-context"><strong>Why it belongs in the investor story</strong><p>Mi Ojo creates the brand language. BeautyDays creates attention and community. Peppers & Beli gives the ecosystem an immediate, sensory, monetizable proof point — food, membership, private events, pantry products, and hospitality partnerships.</p></div><div className="image-triptych peppers-triptych">{peppersFlow.map((flow, i) => <button className={`trip-card reveal-on-view ${active === i ? "active" : ""}`} onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)} onClick={() => setActive(i)} key={flow.label}><Image src={flow.image} alt={flow.title} width={1344} height={768} /><span>{flow.numeral} · {flow.label}</span><h3>{flow.title}</h3><p>{flow.short}</p></button>)}</div><div key={item.label} className="peppers-detail active-panel"><Kicker left={`${item.numeral} · ${item.label}`} right="click source / serve / scale" /><h3>{item.title}</h3><p>{item.why}</p><div>{item.ecosystem.map((x) => <span key={x}>{x}</span>)}</div></div></div></section>;
+}
 
 function BeautyDays() {
   const [active, setActive] = useState(0); const [pillarActive, setPillarActive] = useState(0); const zone = zones[active]; const pillar = beautyPillarDetails[pillarActive];

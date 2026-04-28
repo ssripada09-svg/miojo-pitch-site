@@ -399,3 +399,14 @@ body[data-modal-open="true"] { overflow: hidden; }
 @keyframes portrait-wipe { to { opacity:1; clip-path:inset(0 0 0 0); } }
 @keyframes portrait-settle { to { transform:scale(1); } }
 @media (max-width:760px) { .type-stack-line { white-space:normal; width:auto; animation:none; border-right:0; } .typed-caption, .portrait-reveal, .portrait-reveal img { animation:none; opacity:1; clip-path:none; transform:none; } }
+
+/* Hotfix 7: animate BeautyDays economics bars + amounts */
+.animated-econ { overflow:hidden; }
+.econ-row { opacity:0; transform:translateY(14px); animation:econ-row-in 620ms cubic-bezier(.2,.85,.35,1) var(--delay) forwards; }
+.econ-row div i { width:var(--bar) !important; transform:scaleX(0); transform-origin:left center; animation:econ-bar-fill 1200ms cubic-bezier(.2,.85,.35,1) calc(var(--delay) + 220ms) forwards; }
+.econ-row b span { font-variant-numeric:tabular-nums; }
+.mini-bar div { position:relative; overflow:hidden; }
+.mini-bar div::after { content:""; position:absolute; inset:0; transform:translateX(-120%); background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent); animation:econ-sheen 1400ms ease calc(var(--delay) + 700ms) forwards; }
+@keyframes econ-row-in { to { opacity:1; transform:translateY(0); } }
+@keyframes econ-bar-fill { to { transform:scaleX(1); } }
+@keyframes econ-sheen { to { transform:translateX(120%); } }

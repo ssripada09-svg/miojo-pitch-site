@@ -269,3 +269,39 @@ button { appearance: none; }
 .stat-card strong span, .beauty-metrics strong span, .traction-grid strong span { font-variant-numeric:tabular-nums; }
 @media (max-width:980px){ .tech-grid { grid-template-columns:1fr; } }
 @media (max-width:620px){ .channel-guide { grid-template-columns:1fr; } .type-line { white-space:normal; animation:none; width:auto; border-right:0; } }
+
+/* Hotfix: make typed lines reliable; avoid clipped/buggy numerals in Miojo OS section */
+.type-line { font-family: inherit; max-width: max-content; vertical-align: bottom; }
+.source-code .type-line, .ai-flywheel .type-line { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+@keyframes type-line { to { width: calc(var(--chars) * 1ch); } }
+.mask-title { display: inline-block; animation: mask-title-in 560ms cubic-bezier(.2,.85,.35,1) both; }
+@keyframes mask-title-in { from { opacity:0; clip-path: inset(0 100% 0 0); transform: translateY(8px); } to { opacity:1; clip-path: inset(0 0 0 0); transform: translateY(0); } }
+
+/* ---------- Consolidated Pharos-inspired motion / formatting upgrade ---------- */
+body[data-modal-open="true"] { overflow: hidden; }
+.scroll-progress { transform: translateZ(0); }
+.scroll-progress span { width:100%; transform:scaleX(0); transform-origin:left center; will-change:transform; }
+.tx-word { display:inline-block; overflow:hidden; vertical-align:bottom; }
+.tx-word > span { display:inline-block; opacity:0; transform:translateY(105%); transition: transform 760ms cubic-bezier(.2,.85,.35,1), opacity 760ms ease; }
+.reveal-on-view .tx-word > span, .section-title .tx-word > span, .tv-console .tx-word > span { opacity:1; transform:translateY(0); }
+.tx-accent { color:var(--terracotta); font-style:italic; }
+.mask-reveal { display:inline-block; clip-path:inset(0 100% 0 0); animation:mask-title-in 900ms cubic-bezier(.2,.85,.35,1) .12s forwards; }
+.mask-reveal.delay { animation-delay:.42s; }
+.product-frame { position:relative; isolation:isolate; overflow:hidden; }
+.product-frame::before { content:""; position:absolute; inset:0; pointer-events:none; border:1px solid rgba(196,164,95,.18); }
+.product-chrome { display:flex; align-items:center; gap:9px; margin:-8px -8px 20px; padding:10px 12px; border-bottom:1px solid rgba(245,241,232,.14); color:var(--gold); font-size:10px; letter-spacing:.16em; text-transform:uppercase; font-weight:900; }
+.live-dot { position:relative; width:8px; height:8px; border-radius:999px; background:var(--gold); box-shadow:0 0 0 5px rgba(196,164,95,.12); }
+.live-dot::after { content:""; position:absolute; inset:-6px; border-radius:inherit; border:1px solid rgba(196,164,95,.38); animation:soft-ping 2.2s ease-in-out infinite; }
+.signal-sweep::after { content:""; position:absolute; inset:0; transform:translateX(-130%); background:linear-gradient(90deg,transparent,rgba(196,164,95,.12),transparent); animation:signal-sweep 6.2s ease-in-out infinite; pointer-events:none; z-index:-1; }
+.active-panel { animation:active-panel-in 520ms cubic-bezier(.2,.85,.35,1) both; }
+.detail-drawer:focus { outline: none; }
+.framework-detail, .zone-panel, .active-venture { will-change:transform,opacity; }
+.pillar-row button, .market-grid button, .risk-grid details, .framework-grid button, .channel-guide button { min-width:0; overflow-wrap:anywhere; }
+.section-title h2, .split-hero h1, .zone-panel h3, .framework-detail h3, .os-console h3, .tv-console h3 { overflow-wrap:normal; text-wrap:balance; }
+.tech-grid, .financial-lab, .allocation-grid, .venture-grid, .stat-grid, .market-grid, .risk-grid { min-width:0; }
+@keyframes active-panel-in { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+@keyframes signal-sweep { 0%,48% { transform:translateX(-130%); opacity:0; } 58% { opacity:1; } 78%,100% { transform:translateX(130%); opacity:0; } }
+@keyframes soft-ping { 0%,100% { transform:scale(.7); opacity:.8; } 60% { transform:scale(1.45); opacity:0; } }
+@media (max-width: 1180px) { .market-grid { grid-template-columns:repeat(3,1fr); } .risk-grid { grid-template-columns:repeat(2,1fr); } .pillar-row { grid-template-columns:repeat(4,1fr); } }
+@media (max-width: 760px) { .section-title h2 { font-size:clamp(38px,14vw,64px); } .zone-panel h3, .framework-detail h3, .os-console h3, .tv-console h3 { font-size:clamp(34px,12vw,52px); } .pillar-row, .market-grid, .risk-grid { grid-template-columns:1fr; } .top-nav { padding-top:14px; padding-bottom:14px; } .hero-image { min-height:430px; } .portrait-panel { min-height:480px; } }
+@media (prefers-reduced-motion: reduce) { .tx-word > span, .mask-reveal, .active-panel, .signal-sweep::after, .live-dot::after, .type-line { animation:none !important; transition:none !important; opacity:1 !important; transform:none !important; clip-path:none !important; width:auto !important; border-right:0 !important; } }

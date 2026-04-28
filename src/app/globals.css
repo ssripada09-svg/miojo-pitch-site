@@ -443,3 +443,16 @@ body[data-modal-open="true"] { overflow: hidden; }
 @keyframes founder-line-in { from { opacity:0; clip-path:inset(0 100% 0 0); transform:translateY(8px); } to { opacity:1; clip-path:inset(0 0 0 0); transform:translateY(0); } }
 @media (max-width:1180px) { .founder-typed-title h2 { font-size:clamp(46px,7vw,78px); } }
 @media (max-width:980px) { .founder-typed-title h2 { font-size:clamp(42px,11vw,72px); } }
+
+/* Hotfix 11: Journey title typing + timeline progression animation */
+.journey-section { overflow:hidden; }
+.journey-title h2 { max-width:860px; }
+.journey-title .type-stack-line { color:var(--cream); }
+.animated-timeline::before { transform:scaleX(0); transform-origin:left center; animation:timeline-draw 1300ms cubic-bezier(.2,.85,.35,1) 1.95s forwards; }
+.animated-timeline .timeline-item { opacity:0; transform:translateY(18px); animation:timeline-item-in 620ms cubic-bezier(.2,.85,.35,1) calc(2.15s + var(--i) * 150ms) forwards; }
+.animated-timeline .dot { transform:scale(.25); opacity:0; animation:timeline-dot-in 520ms cubic-bezier(.2,.85,.35,1) calc(2s + var(--i) * 150ms) forwards; }
+.animated-timeline .timeline-item:hover .dot { box-shadow:0 0 0 12px rgba(196,164,95,.18), 0 0 24px rgba(196,164,95,.42); }
+@keyframes timeline-draw { to { transform:scaleX(1); } }
+@keyframes timeline-item-in { to { opacity:1; transform:translateY(0); } }
+@keyframes timeline-dot-in { to { opacity:1; transform:scale(1); } }
+@media (max-width:980px) { .animated-timeline::before { display:none; } .animated-timeline .timeline-item, .animated-timeline .dot { animation-delay:calc(var(--i) * 90ms) !important; } }

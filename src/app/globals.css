@@ -244,3 +244,28 @@ button { appearance: none; }
 @keyframes drawer-in { from { transform:translateX(100%); } to { transform:translateX(0); } }
 @media (max-width: 980px) { .framework-layout, .financial-lab, .allocation-grid { grid-template-columns:1fr; } .framework-detail { position:relative; top:auto; } .market-grid, .risk-grid { grid-template-columns:1fr 1fr; } .mini-bar { grid-template-columns:1fr; } .mini-bar b { text-align:left; } }
 @media (max-width: 620px) { .market-grid, .risk-grid { grid-template-columns:1fr; } .fund-row { grid-template-columns:1fr; } }
+
+/* ---------- Miojo OS / TV narrative + Pharos-inspired typed/count-up treatments ---------- */
+.type-line { display:inline-block; overflow:hidden; white-space:nowrap; border-right:2px solid currentColor; width:0; animation:type-line 1.45s steps(var(--chars)) .35s forwards, caret 900ms steps(1) infinite; }
+@keyframes type-line { to { width: calc(var(--chars) * .56em); } }
+@keyframes caret { 50% { border-color: transparent; } }
+.tech-layer { position:relative; overflow:hidden; }
+.tech-layer::before { content:""; position:absolute; inset:0; opacity:.16; background-image:linear-gradient(rgba(245,241,232,.15) 1px, transparent 1px),linear-gradient(90deg,rgba(245,241,232,.15) 1px,transparent 1px); background-size:54px 54px; mask-image:radial-gradient(circle at 50% 38%, black, transparent 72%); }
+.tech-grid { position:relative; display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+.os-console, .tv-console { border:1px solid rgba(245,241,232,.16); background:rgba(31,44,32,.62); padding:30px; min-height:560px; box-shadow:0 26px 70px rgba(0,0,0,.16); }
+.os-console h3, .tv-console h3 { font-family:Georgia,serif; font-size:clamp(42px,5vw,70px); line-height:.9; letter-spacing:-.055em; margin:28px 0 20px; color:var(--cream); }
+.os-console p, .tv-console p { color:rgba(245,241,232,.72); line-height:1.65; font-size:18px; }
+.os-tabs { display:grid; gap:10px; margin-top:34px; }
+.os-tabs button { border:1px solid rgba(245,241,232,.16); background:transparent; color:rgba(245,241,232,.72); text-align:left; padding:14px; cursor:pointer; text-transform:uppercase; letter-spacing:.1em; font-size:11px; transition:all .25s ease; }
+.os-tabs button:hover, .os-tabs button.active { background:var(--gold); color:var(--forest); transform:translateX(6px); }
+.channel-guide { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(245,241,232,.14); margin-top:30px; }
+.channel-guide button { border:0; background:var(--forest-2); color:var(--cream); text-align:left; padding:18px; min-height:126px; cursor:pointer; transition:all .25s ease; font-family:Georgia,serif; font-size:23px; }
+.channel-guide button span { display:block; color:var(--gold); font-family:Inter, sans-serif; font-size:10px; letter-spacing:.16em; margin-bottom:16px; }
+.channel-guide button small { display:block; margin-top:12px; color:rgba(245,241,232,.55); font-family:Inter, sans-serif; font-size:10px; letter-spacing:.12em; text-transform:uppercase; }
+.channel-guide button:hover { background:var(--gold); color:var(--forest); transform:translateY(-5px); }
+.channel-guide button:hover span, .channel-guide button:hover small { color:var(--rust); }
+.ai-flywheel { position:relative; margin-top:28px; display:flex; flex-wrap:wrap; align-items:center; gap:12px; border:1px solid rgba(245,241,232,.16); padding:18px; color:var(--peach); text-transform:uppercase; letter-spacing:.12em; font-size:11px; font-weight:900; }
+.ai-flywheel span { background:rgba(245,241,232,.08); padding:10px 12px; }
+.stat-card strong span, .beauty-metrics strong span, .traction-grid strong span { font-variant-numeric:tabular-nums; }
+@media (max-width:980px){ .tech-grid { grid-template-columns:1fr; } }
+@media (max-width:620px){ .channel-guide { grid-template-columns:1fr; } .type-line { white-space:normal; animation:none; width:auto; border-right:0; } }

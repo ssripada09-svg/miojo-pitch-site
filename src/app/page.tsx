@@ -50,6 +50,55 @@ const osViews = [
 ];
 const tvChannels = ["Get Ready", "Soft Life / Reset", "Dress the Mood", "Pantry / Table", "Beauty Days Live", "House Channel"];
 
+
+const ecosystemNodes = [
+  {
+    key: "mi-ojo",
+    label: "MI OJO",
+    role: "Creative engine",
+    position: "eco-top",
+    copy: "Turns Ciarra’s eye into repeatable strategy: brand language, venture briefs, cultural IP, partner storytelling, and launch systems.",
+    feeds: ["Creative direction", "Brand incubation", "Investor-grade narratives"],
+    ai: "Miojo OS pressure-tests concepts, tracks partner/retailer targets, and converts Ciarra’s pattern recognition into reusable launch playbooks.",
+  },
+  {
+    key: "beautydays",
+    label: "BEAUTYDAYS",
+    role: "Community amplifier",
+    position: "eco-right",
+    copy: "Converts mass attention into distribution: members, sponsors, vendors, event data, content, and first-party demand signals.",
+    feeds: ["Sponsor intelligence", "Membership loops", "Beauty + wellness demand"],
+    ai: "The Community OS reads RSVP, attendance, activation and retention signals so Ciarra can respond to the community faster and program what people actually want next.",
+  },
+  {
+    key: "peppers",
+    label: "PEPPERS & BELI",
+    role: "Revenue core",
+    position: "eco-bottom",
+    copy: "Turns heritage into cash flow: restaurant, membership dining, farm supply chain, private events, and Beli’s Pantry CPG.",
+    feeds: ["Hospitality proof", "Pantry products", "Ritual + food programming"],
+    ai: "Experience intelligence tracks demand, reservations, guest segments, menu/programming themes, and content-commerce opportunities.",
+  },
+  {
+    key: "residences",
+    label: "THE RESIDENCES",
+    role: "Long-term compounding asset",
+    position: "eco-left",
+    copy: "Extends the world into travel, retreats, wellness-forward homes, private membership, and eventually owned real estate.",
+    feeds: ["Retreat demand", "Wellness programming", "Membership expansion"],
+    ai: "Miojo OS links BeautyDays interests, Miojo TV rituals, and hospitality demand into a smarter retreat/residence pipeline.",
+  },
+  {
+    key: "tv",
+    label: "MIOJO TV",
+    role: "Always-on surface",
+    position: "eco-midright",
+    copy: "Makes the ecosystem continuous between events: a channel guide where beauty, wellness, fashion, food, and community become daily habit.",
+    feeds: ["Content-to-commerce", "First-party intent", "Event + membership conversion"],
+    ai: "Programming data becomes a demand-sensing engine: what people watch, save, RSVP to, shop, and repeat informs the next activation.",
+  },
+];
+
 const risks = [["Concentration", "Founder key-person risk", "Codify Mi Ojo playbooks and named deputies; execution outlives one person."], ["Execution", "Restaurants are hard", "One flagship P&L first, operating partner seat, proof before rollout."], ["Festival risk", "Events are production-heavy", "Brand LOIs, title sponsorship, phased capacity and sponsor-underwritten zones."], ["Capital", "Multi-venture complexity", "Milestone-gated capital; every allocation tied to a partnership seat and revenue path."]];
 
 
@@ -158,7 +207,11 @@ function BeautyDays() {
 }
 function BeautyEconomics() { const lines = [["Ticketing", "$1.05M", "8,500 pax", 100], ["Title Sponsorship", "$700K", "2 deals", 67], ["Vendor Fees", "$470K", "125 brands", 45], ["F&B / Dining", "$220K", "3,600 seats", 21], ["Media Rights", "$100K", "1 partner", 10]]; return <div className="beauty-econ"><Kicker left="BeautyDays Y1 economics" right="click zones above" />{lines.map(([name, amt, src, w]) => <div className="mini-bar" key={name}><span>{name}<small>{src}</small></span><div><i style={{ width: `${w}%` }} /></div><b>{amt}</b></div>)}</div>; }
 
-function Ecosystem() { return <section id="ecosystem" className="cream-section"><div className="shell two-col"><div><SectionTitle eyebrow="11 · Shared Infrastructure" title="FOUR VENTURES. ONE AUDIENCE. ONE CREATIVE ENGINE." italic="Shared infrastructure amplifies every dollar invested." /><div className="ecosystem-list">{["Creative Direction", "Production & IP", "Supply Chain", "Hospitality & Real Estate"].map(x => <button key={x}>{x}</button>)}</div></div><div className="ecosystem-orbit reveal-on-view"><div className="center">MI OJO<br /><em>the engine</em></div>{ventures.slice(1).map((v, i) => <span className={`orbit o${i}`} key={v.name}>{v.name}</span>)}</div></div></section>; }
+function Ecosystem() {
+  const [active, setActive] = useState(0);
+  const node = ecosystemNodes[active];
+  return <section id="ecosystem" className="cream-section ecosystem-section"><div className="shell"><SectionTitle eyebrow="11 · Shared Infrastructure" title="FOUR VENTURES. ONE AUDIENCE. ONE CREATIVE ENGINE." italic="The interlock is the investment case.">Click the map. Each node is not a separate idea; it is a different expression of the same audience, taste, content, hospitality, community, and operating system. Miojo OS and Miojo TV make the loop faster and more responsive.</SectionTitle><div className="ecosystem-explorer"><div className="ecosystem-map" aria-label="Clickable Miojo ecosystem interlock map"><div className="eco-ring outer" /><div className="eco-ring inner" /><button className="eco-center" onClick={() => setActive(0)}><strong>MI OJO</strong><em>the engine</em></button>{ecosystemNodes.map((n, i) => <button key={n.key} className={`eco-node ${n.position} ${active === i ? "active" : ""}`} onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)} onClick={() => setActive(i)}><span>{n.role}</span>{n.label}</button>)}</div><aside key={node.key} className="ecosystem-detail active-panel"><Kicker left={node.role} right="click nodes on map" /><h3>{node.label}</h3><p>{node.copy}</p><div className="detail-stack"><div><span>Feeds the ecosystem</span>{node.feeds.map((x) => <b key={x}>{x}</b>)}</div><div><span>AI / tech leverage</span><p>{node.ai}</p></div></div></aside></div><div className="ecosystem-flow"><span>Ciarra’s taste</span><ArrowRight size={15}/><span>Community signal</span><ArrowRight size={15}/><span>Miojo OS synthesis</span><ArrowRight size={15}/><span>Miojo TV habit</span><ArrowRight size={15}/><span>Commerce + experiences</span></div></div></section>;
+}
 
 function TechLayer() {
   const [active, setActive] = useState(0);

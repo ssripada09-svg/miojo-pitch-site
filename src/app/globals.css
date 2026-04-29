@@ -463,3 +463,161 @@ body[data-modal-open="true"] { overflow: hidden; }
 .framework-grid { grid-template-columns:repeat(5, minmax(0, 1fr)); }
 @media (max-width:1180px) { .framework-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); } .framework-grid button strong { font-size:clamp(26px,4vw,42px); } }
 @media (max-width:620px) { .framework-grid { grid-template-columns:1fr; } .framework-grid button { min-height:118px; } .framework-grid button strong { font-size:34px; } }
+
+/* ---------------------------------------------------------------------------
+   Hotfix 13: rescue-pass — cross-browser scroll reveals + font wiring
+   --------------------------------------------------------------------------- */
+
+/* Wire next/font/google variables into the existing chain (additive, no breakage) */
+body { font-family: var(--font-inter), Inter, ui-sans-serif, system-ui, sans-serif; }
+.section-title h2, .split-hero h1,
+.deck-italic, .hero-italic, .source-code,
+.beauty-hero h2, .zone-panel h3, .framework-detail h3,
+.os-console h3, .tv-console h3, .ecosystem-detail h3,
+.pillar-detail h3, .peppers-detail h3, .venture-quote-card h3,
+.venture-card h3, .venture-card em, .stat-card strong,
+.market-grid strong, .traction-grid strong, .timeline-item strong,
+.bar-row strong, .bar-row b, .ask-card h3,
+.detail-drawer h3, .channel-guide button,
+.beauty-metrics strong, .pillar-row b, .eco-center strong, .eco-center em,
+blockquote, .drawer-lede,
+.peppers-context strong, .fund-row strong, .trip-card h3 {
+  font-family: var(--font-fraunces), Georgia, "Times New Roman", serif;
+}
+.kicker, .top-nav, .hero-sub,
+.gold-btn, .line-btn,
+.source-code .type-line, .ai-flywheel .type-line,
+.product-chrome, .pillar-row button b,
+.os-tabs button, .channel-guide button span, .channel-guide button small {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* ---- Cross-browser reveal: gate on data-shown set by IntersectionObserver --- */
+/* Override the animation-timeline:view fallback that fires on page load in
+   non-Chrome browsers, leaving everything pre-animated by the time the user
+   scrolls down. */
+.reveal-on-view {
+  opacity: 0;
+  transform: translateY(28px);
+  animation: none !important;
+  transition:
+    opacity 760ms cubic-bezier(.2,.85,.35,1),
+    transform 760ms cubic-bezier(.2,.85,.35,1);
+  will-change: opacity, transform;
+}
+.reveal-on-view[data-shown="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* tx-word reveals (used by WordReveal) — only animate when parent is shown */
+.tx-word > span { opacity: 0; transform: translateY(105%); }
+[data-shown="true"] .tx-word > span,
+.tx-word[data-shown="true"] > span,
+.section-title[data-shown="true"] .tx-word > span,
+.tv-console[data-shown="true"] .tx-word > span,
+.os-console[data-shown="true"] .tx-word > span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Typed line: pause until parent shown */
+.section-title:not([data-shown="true"]) .type-line,
+.tv-console:not([data-shown="true"]) .type-line,
+.ai-flywheel:not([data-shown="true"]) .type-line {
+  animation: none !important;
+  width: 0;
+}
+
+/* Founder typed title — only run when scrolled into view */
+.founder-typed-title:not([data-shown="true"]) .type-stack-line,
+.founder-typed-title:not([data-shown="true"]) .typed-caption {
+  animation: none !important;
+  opacity: 0;
+}
+.journey-title:not([data-shown="true"]) .type-stack-line {
+  animation: none !important;
+  opacity: 0;
+}
+
+/* Animated timeline + econ bars — only fire when in view */
+.animated-timeline:not([data-shown="true"])::before,
+.animated-timeline:not([data-shown="true"]) .timeline-item,
+.animated-timeline:not([data-shown="true"]) .dot { animation: none !important; opacity: 0 !important; }
+.animated-timeline[data-shown="true"]::before { animation: timeline-draw 1300ms cubic-bezier(.2,.85,.35,1) .15s forwards; }
+.animated-timeline[data-shown="true"] .timeline-item { animation: timeline-item-in 620ms cubic-bezier(.2,.85,.35,1) calc(.35s + var(--i, 0) * 130ms) forwards; }
+.animated-timeline[data-shown="true"] .dot { animation: timeline-dot-in 520ms cubic-bezier(.2,.85,.35,1) calc(.2s + var(--i, 0) * 130ms) forwards; }
+
+.animated-econ:not([data-shown="true"]) .econ-row { animation: none !important; opacity: 0 !important; transform: translateY(14px); }
+.animated-econ:not([data-shown="true"]) .econ-row div i { animation: none !important; transform: scaleX(0); }
+.animated-econ[data-shown="true"] .econ-row { animation: econ-row-in 620ms cubic-bezier(.2,.85,.35,1) var(--delay, 0ms) forwards; }
+.animated-econ[data-shown="true"] .econ-row div i { animation: econ-bar-fill 1200ms cubic-bezier(.2,.85,.35,1) calc(var(--delay, 0ms) + 220ms) forwards; }
+
+/* Portrait wipe — only when in view */
+.portrait-reveal:not([data-shown="true"]) { animation: none !important; opacity: 0; clip-path: inset(0 100% 0 0); }
+.portrait-reveal:not([data-shown="true"]) img { animation: none !important; transform: scale(1.04); }
+.portrait-reveal[data-shown="true"] { animation: portrait-wipe 950ms cubic-bezier(.2,.85,.35,1) .12s forwards; }
+.portrait-reveal[data-shown="true"] img { animation: portrait-settle 1200ms cubic-bezier(.2,.85,.35,1) .12s forwards; }
+
+/* Section bar-row: keep gradient pop, but gate on parent-shown */
+.financial-lab:not([data-shown="true"]) .bar-track span { animation: none; transform: scaleX(0); transform-origin: left; }
+.financial-lab[data-shown="true"] .bar-track span { animation: bar-in 1.2s cubic-bezier(.2,.85,.35,1) both; }
+
+/* Active-panel keep its short transition (drives detail panel switching) — no change */
+
+/* ---- Layout / formatting micro-fixes ---- */
+/* On mobile, image goes BELOW copy (more conventional for an investor pitch) */
+@media (max-width: 980px) {
+  .hero-image { order: 0; min-height: 420px; }
+  .split-hero { grid-template-rows: auto auto; }
+}
+
+/* Source/proof drawer trigger affordance — small chevron next to clickable cards */
+.has-source { position: relative; }
+.has-source::after {
+  content: "";
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  width: 8px;
+  height: 8px;
+  border-top: 1px solid currentColor;
+  border-right: 1px solid currentColor;
+  transform: rotate(45deg);
+  opacity: .35;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+.has-source:hover::after { opacity: .85; transform: rotate(45deg) translate(2px, -2px); }
+
+/* Platform thesis interstitial section */
+.thesis-section { background: var(--cream-2); padding: clamp(72px, 8vw, 120px) 0; border-top: 1px solid rgba(45,58,45,.08); border-bottom: 1px solid rgba(45,58,45,.08); }
+.thesis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 5vw, 72px); align-items: center; }
+.thesis-grid .thesis-headline h2 { font-family: var(--font-fraunces), Georgia, serif; font-size: clamp(38px, 5.4vw, 78px); line-height: .92; letter-spacing: -.05em; text-transform: uppercase; }
+.thesis-grid .thesis-headline em { display: block; margin-top: 18px; font-family: var(--font-fraunces), Georgia, serif; font-style: italic; font-size: clamp(20px, 2.4vw, 32px); color: var(--terracotta); letter-spacing: -.02em; }
+.thesis-pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(45,58,45,.16); }
+.thesis-pillars > div { background: var(--cream); padding: 22px 24px; }
+.thesis-pillars span { display: block; color: var(--olive); text-transform: uppercase; letter-spacing: .14em; font-size: 10px; font-weight: 900; margin-bottom: 12px; }
+.thesis-pillars b { display: block; margin-bottom: 8px; font-family: var(--font-fraunces), Georgia, serif; font-size: 22px; line-height: 1.05; color: var(--forest); }
+.thesis-pillars p { margin: 0; color: var(--muted); line-height: 1.6; font-size: 15px; }
+@media (max-width: 980px) { .thesis-grid { grid-template-columns: 1fr; } .thesis-pillars { grid-template-columns: 1fr; } }
+
+/* Closing section */
+.closing-section { background: var(--forest-2); color: var(--cream); padding: clamp(96px, 11vw, 160px) 0; text-align: center; position: relative; overflow: hidden; }
+.closing-section::before { content: ""; position: absolute; inset: 0; background: radial-gradient(800px 500px at 30% -10%, rgba(196,164,95,.18), transparent 60%), radial-gradient(700px 500px at 80% 110%, rgba(193,90,59,.18), transparent 60%); pointer-events: none; }
+.closing-section .shell { position: relative; }
+.closing-section .kicker { justify-content: center; color: var(--gold); }
+.closing-headline { font-family: var(--font-fraunces), Georgia, serif; font-size: clamp(46px, 7vw, 96px); line-height: .96; letter-spacing: -.05em; text-transform: uppercase; max-width: 18ch; margin: 28px auto 0; text-wrap: balance; }
+.closing-headline em { font-style: italic; color: var(--gold); display: inline; }
+.closing-lede { max-width: 640px; margin: 28px auto 0; color: rgba(245,241,232,.84); font-size: clamp(17px, 2vw, 21px); line-height: 1.6; }
+.closing-actions { margin-top: 38px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.closing-actions .gold-btn { background: var(--gold); color: var(--forest); }
+.closing-actions .line-btn { border: 1px solid rgba(245,241,232,.32); color: var(--cream); }
+.closing-actions .line-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Reduced motion — extend to new things */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-view, .reveal-on-view[data-shown="true"] { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .portrait-reveal, .portrait-reveal[data-shown="true"], .portrait-reveal[data-shown="true"] img { animation: none !important; opacity: 1 !important; clip-path: none !important; transform: none !important; }
+  .animated-timeline[data-shown="true"]::before, .animated-timeline[data-shown="true"] .timeline-item, .animated-timeline[data-shown="true"] .dot { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .animated-econ[data-shown="true"] .econ-row, .animated-econ[data-shown="true"] .econ-row div i { animation: none !important; opacity: 1 !important; transform: none !important; }
+}

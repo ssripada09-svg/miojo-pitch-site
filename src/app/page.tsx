@@ -143,6 +143,95 @@ const ecosystemNodes = [
 
 const risks = [["Concentration", "Founder key-person risk", "Codify Mi Ojo playbooks and named deputies; execution outlives one person."], ["Execution", "Restaurants are hard", "One flagship P&L first, operating partner seat, proof before rollout."], ["Festival risk", "Events are production-heavy", "Brand LOIs, title sponsorship, phased capacity and sponsor-underwritten zones."], ["Capital", "Multi-venture complexity", "Milestone-gated capital; every allocation tied to a partnership seat and revenue path."]];
 
+// Sourcing / proof context that powers the click-through drawers on every metric tile.
+const sourceMap: Record<string, { title: string; body: string; chips?: string[] }> = {
+  "Years creative leadership": {
+    title: "20+ years across cultural commerce",
+    body: "From Def Jam and Island Records in the early-to-mid 2000s, to Rihanna Art Director on Good Girl Gone Bad (2007), to Fenty Corp at LVMH (2014–19), to Ciarra Pardo Co. (2026). Twenty years of operating, not theorizing.",
+    chips: ["Def Jam · Island", "Fenty Corp · LVMH", "Investor-grade track record"],
+  },
+  "Fenty brands built at LVMH scale": {
+    title: "Four category-defining brands inside Fenty Corp",
+    body: "Fenty Beauty, Fenty Skin, Savage X Fenty, and Fenty Maison — built and scaled under LVMH discipline. The same operator standard moves to Miojo.",
+    chips: ["Fenty Beauty", "Fenty Skin", "Savage X Fenty", "Fenty Maison"],
+  },
+  "Brand value created": {
+    title: "$3B+ aggregate brand value across the Fenty portfolio",
+    body: "Directional estimate based on public LVMH disclosures and industry analyst consensus. Numbers are illustrative of the operating standard, not a personal claim.",
+    chips: ["LVMH disclosures", "Industry analyst consensus", "Directional"],
+  },
+  "Unicorns in the making": {
+    title: "Three category paths inside Miojo with unicorn potential",
+    body: "Mi Ojo (creative + venture equity), Peppers & Beli (hospitality + CPG), and BeautyDays (festival + community OS) each have credible paths to >$1B enterprise value through different verticals.",
+    chips: ["Mi Ojo", "Peppers & Beli", "BeautyDays"],
+  },
+  "Target attendees": {
+    title: "8,500 Year-1 attendees across the multi-day program",
+    body: "Capacity-planned across six zones and seven pillars. Conservative against comparable beauty + wellness festivals at this taste tier.",
+    chips: ["6 zones", "7 pillars", "Multi-day program"],
+  },
+  "Brand vendors": {
+    title: "125+ curated vendors signed for Year 1",
+    body: "Vendor program is invitation-led and curated to taste, not open-call. Combination of established prestige brands, emerging founder-led labels, and Mi Ojo scouting pipeline.",
+    chips: ["Curated", "Invitation-led", "Vendor fee + 5% on-site rev share"],
+  },
+  "Projected revenue Y1": {
+    title: "$2.3M Year-1 BeautyDays revenue",
+    body: "Across tickets ($1.05M), title sponsorship ($700K), vendor fees ($470K), F&B / dining ($220K), and media rights ($100K). Y3 trajectory is $9.8M across three city activations.",
+    chips: ["Tickets", "Sponsorship", "Vendor fees", "F&B", "Media rights"],
+  },
+  "Beauty": {
+    title: "Beauty market — $579B global, 2026E",
+    body: "Global beauty market projected for 2026 across prestige, mass, professional, and emerging tech-enabled segments. Source: Statista / industry analyst consensus.",
+    chips: ["Prestige", "Mass", "Professional", "Beauty-tech"],
+  },
+  "Food & CPG": {
+    title: "Specialty food & CPG — $1.1T US, 2026E",
+    body: "US specialty food + CPG addressable market 2026E. Peppers & Beli + Beli's Pantry sit inside the premium hospitality + branded pantry slice.",
+    chips: ["Specialty grocery", "DTC pantry", "Hospitality CPG"],
+  },
+  "Experiences": {
+    title: "Festival & experience economy — $183B global, 2026E",
+    body: "Global live experience and festival market projected 2026E. BeautyDays is engineered to be a portfolio amplifier on top of standard festival economics.",
+    chips: ["Festival economics", "Sponsorship", "Membership"],
+  },
+  "Wellness home": {
+    title: "Global wellness economy — $1.8T, 2026E",
+    body: "Global Wellness Institute forecast for the wellness economy in 2026, including wellness real estate, retreats, and at-home wellness — directly addressable by The Residences.",
+    chips: ["Wellness real estate", "Retreats", "At-home wellness"],
+  },
+  "TAM total": {
+    title: "$3.6T addressable across the four ventures",
+    body: "Combined addressable market across beauty, specialty food + CPG, experiences, and wellness. Miojo doesn't try to take all of it — it earns a credible share by being the founder-led platform across all four.",
+    chips: ["Cross-category", "Founder-led", "Platform leverage"],
+  },
+  "Mi Ojo · Active": {
+    title: "Mi Ojo — 7 active client retainers",
+    body: "Confidential client list. Combination of beauty, fashion, hospitality, and emerging brand engagements. Retainers fund creative infrastructure; equity stakes compound.",
+    chips: ["Beauty + fashion", "Hospitality", "Equity upside"],
+  },
+  "Peppers & Beli · Pre-launch": {
+    title: "2,400 on the membership waitlist",
+    body: "Pre-launch membership waitlist accumulated through founder-led organic and select cultural press. Conversion rate to paying membership is the early proof point.",
+    chips: ["Founder-led organic", "Cultural press", "Pre-launch"],
+  },
+  "BeautyDays · Year Zero": {
+    title: "28 brand LOIs signed for BeautyDays Y1",
+    body: "Letters of Intent across vendor + sponsor categories for Year-1 BeautyDays. The combination of confirmed sponsor revenue and curated vendor demand de-risks the festival economics.",
+    chips: ["Sponsor LOIs", "Vendor commitments", "Y1 de-risking"],
+  },
+  "Owned channels": {
+    title: "1.2M+ combined audience reach",
+    body: "Aggregate organic reach across Ciarra-led + venture-owned channels. CAC is effectively zero for top-of-funnel — the platform earns attention before it spends to acquire it.",
+    chips: ["Founder channels", "Venture handles", "Owned audience"],
+  },
+};
+
+function openSourceDrawer(key: string) {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(new CustomEvent("miojo:open-source", { detail: { key } }));
+}
+
 
 function CountUp({ to, prefix = "", suffix = "", decimals = 0 }: { to: number; prefix?: string; suffix?: string; decimals?: number }) {
   const [value, setValue] = useState(0);
@@ -238,7 +327,7 @@ function DetailDrawer({ open, onClose, title, children }: { open: boolean; onClo
 }
 
 function Hero() { return <section id="top" className="split-hero"><div className="hero-copy reveal-on-view"><Kicker left="CIARRA PARDO CO · 2026" right="CONFIDENTIAL" /><p className="deck-italic hero-italic">Heritage is medicine.</p><h1><span className="mask-reveal">CIARRA</span><br /><span className="mask-reveal delay">PARDO</span></h1><p className="source-code"><TypeLine text="the ecosystem’s source code" /></p><p className="hero-sub">MI OJO · PEPPERS & BELI · BEAUTYDAYS · THE RESIDENCES</p><div className="hero-actions"><a href="#portfolio" className="gold-btn">Explore the ecosystem <ArrowRight size={16} /></a><a href="#financials" className="line-btn">View investor model</a></div></div><div className="hero-image"><Image src="/assets/canonical/page01_img02.png" alt="Ciarra Pardo black and white founder portrait" fill priority sizes="(max-width: 900px) 100vw, 44vw" className="object-cover grayscale" /></div></section>; }
-function TrackRecord() { return <section id="founder" className="cream-section founder-proof-section"><div className="shell two-col founder-grid"><div className="portrait-panel portrait-reveal"><Image src="/assets/canonical/page02_img01.png" alt="Ciarra Pardo portrait" fill sizes="(max-width: 900px) 100vw, 38vw" className="object-cover grayscale" /></div><div><div className="section-title founder-typed-title"><Kicker left="02 · The Founder" /><h2><TypeStack lines={["TWENTY YEARS", "BUILDING", "THE BRANDS", "THE CULTURE", "QUOTES BACK."]} /></h2><p className="deck-italic typed-caption">institutional rigor, cultural fluency.</p><p className="lede">Born in the Bronx to Puerto Rican parents, Ciarra has spent twenty years at the intersection of culture, commerce, and creative authority — from Def Jam and Rihanna to Fenty Corp and the next portfolio.</p></div><div className="stat-grid">{stats.map(([num, label], i) => <button className="stat-card reveal-on-view" style={{ animationDelay: `${i * 90}ms` }} key={label}><strong><SmartNumber value={num} /></strong><span>{label}</span><small>click for source context</small></button>)}</div><blockquote>“In 2021 I was diagnosed with Stage 3C triple-negative breast cancer. I beat it. Everything after is built in that clarity.”</blockquote></div></div></section>; }
+function TrackRecord() { return <section id="founder" className="cream-section founder-proof-section"><div className="shell two-col founder-grid"><div className="portrait-panel portrait-reveal"><Image src="/assets/canonical/page02_img01.png" alt="Ciarra Pardo portrait" fill sizes="(max-width: 900px) 100vw, 38vw" className="object-cover grayscale" /></div><div><div className="section-title founder-typed-title"><Kicker left="02 · The Founder" /><h2><TypeStack lines={["TWENTY YEARS", "BUILDING", "THE BRANDS", "THE CULTURE", "QUOTES BACK."]} /></h2><p className="deck-italic typed-caption">institutional rigor, cultural fluency.</p><p className="lede">Born in the Bronx to Puerto Rican parents, Ciarra has spent twenty years at the intersection of culture, commerce, and creative authority — from Def Jam and Rihanna to Fenty Corp and the next portfolio.</p></div><div className="stat-grid">{stats.map(([num, label], i) => <button className="stat-card reveal-on-view has-source" style={{ animationDelay: `${i * 90}ms` }} key={label} onClick={() => openSourceDrawer(label)} aria-label={`${label} — open source context`}><strong><SmartNumber value={num} /></strong><span>{label}</span><small>click for source context</small></button>)}</div><blockquote>“In 2021 I was diagnosed with Stage 3C triple-negative breast cancer. I beat it. Everything after is built in that clarity.”</blockquote></div></div></section>; }
 function Journey() { return <section className="forest-section journey-section"><div className="shell"><div className="section-title journey-title"><Kicker left="04 · The Journey" /><h2><TypeStack lines={["FROM BRONX", "KITCHEN TABLES", "TO THE FENTY", "BLUEPRINT."]} /></h2><p className="deck-italic typed-caption">Every chapter trained the next.</p></div><div className="timeline animated-timeline">{journey.map(([year, place, copy], i) => <button className="timeline-item" key={year} style={{ ["--i" as string]: i }}><span className="dot" /><strong>{year}</strong><b>{place}</b><p>{copy}</p></button>)}</div></div></section>; }
 
 function Portfolio() {
@@ -258,7 +347,7 @@ function Peppers() {
 
 function BeautyDays() {
   const [active, setActive] = useState(0); const [pillarActive, setPillarActive] = useState(0); const zone = zones[active]; const pillar = beautyPillarDetails[pillarActive];
-  return <section id="beautydays" className="forest-section beauty-section"><div className="shell"><div className="beauty-hero reveal-on-view"><Image src="/assets/canonical/page11_img01.jpg" alt="BeautyDays activation render" fill sizes="100vw" className="object-cover" /><div><Kicker left="THREE · BeautyDays" right="The Amplifier" /><h2>BEAUTYDAYS</h2><p className="deck-italic">the gathering</p><p>A multi-day beauty and culture festival engineered to convert mass attention into portfolio distribution.</p></div></div><div className="beauty-metrics">{[["8,500", "Target attendees"], ["125+", "Brand vendors"], ["$2.3M", "Projected revenue Y1"]].map(([n,l]) => <button key={l}><strong><SmartNumber value={n} /></strong><span>{l}</span></button>)}</div><div className="pillar-row">{beautyPillars.map((p, i) => <button key={p} onMouseEnter={() => setPillarActive(i)} onFocus={() => setPillarActive(i)} onClick={() => setPillarActive(i)} className={pillarActive === i ? "active" : ""}><b>{["I","II","III","IV","V","VI","VII"][i]}</b>{p}</button>)}</div><div key={pillar.title} className="pillar-detail active-panel"><Kicker left="Seven pillars · one whole-self ritual" right="click a pillar" /><h3>{pillar.title}</h3><p>{pillar.thesis}</p><div className="pillar-detail-grid"><div><span>Programming</span>{pillar.programming.map((x) => <b key={x}>{x}</b>)}</div><div><span>Sponsor fit</span><p>{pillar.sponsor}</p></div><div><span>Ecosystem conversion</span><p>{pillar.conversion}</p></div></div></div><div className="zone-explorer"><div className="zone-tabs">{zones.map((z, i) => <button key={z[0]} onClick={() => setActive(i)} onMouseEnter={() => setActive(i)} className={active === i ? "active" : ""}>ZONE {String(i + 1).padStart(2, "0")}<ChevronRight size={14}/></button>)}</div><div key={zone[0]} className="zone-panel active-panel"><Kicker left={zone[2]} /><h3>{zone[0]}</h3><p>{zone[1]}</p><div className="zone-chips">{zone[3].map((x) => <span key={x}>{x}</span>)}</div></div></div><BeautyEconomics /></div></section>;
+  return <section id="beautydays" className="forest-section beauty-section"><div className="shell"><div className="beauty-hero reveal-on-view"><Image src="/assets/canonical/page11_img01.jpg" alt="BeautyDays activation render" fill sizes="100vw" className="object-cover" /><div><Kicker left="THREE · BeautyDays" right="The Amplifier" /><h2>BEAUTYDAYS</h2><p className="deck-italic">the gathering</p><p>A multi-day beauty and culture festival engineered to convert mass attention into portfolio distribution.</p></div></div><div className="beauty-metrics">{[["8,500", "Target attendees"], ["125+", "Brand vendors"], ["$2.3M", "Projected revenue Y1"]].map(([n,l]) => <button key={l} className="has-source" onClick={() => openSourceDrawer(l)} aria-label={`${l} — open source context`}><strong><SmartNumber value={n} /></strong><span>{l}</span></button>)}</div><div className="pillar-row">{beautyPillars.map((p, i) => <button key={p} onMouseEnter={() => setPillarActive(i)} onFocus={() => setPillarActive(i)} onClick={() => setPillarActive(i)} className={pillarActive === i ? "active" : ""}><b>{["I","II","III","IV","V","VI","VII"][i]}</b>{p}</button>)}</div><div key={pillar.title} className="pillar-detail active-panel"><Kicker left="Seven pillars · one whole-self ritual" right="click a pillar" /><h3>{pillar.title}</h3><p>{pillar.thesis}</p><div className="pillar-detail-grid"><div><span>Programming</span>{pillar.programming.map((x) => <b key={x}>{x}</b>)}</div><div><span>Sponsor fit</span><p>{pillar.sponsor}</p></div><div><span>Ecosystem conversion</span><p>{pillar.conversion}</p></div></div></div><div className="zone-explorer"><div className="zone-tabs">{zones.map((z, i) => <button key={z[0]} onClick={() => setActive(i)} onMouseEnter={() => setActive(i)} className={active === i ? "active" : ""}>ZONE {String(i + 1).padStart(2, "0")}<ChevronRight size={14}/></button>)}</div><div key={zone[0]} className="zone-panel active-panel"><Kicker left={zone[2]} /><h3>{zone[0]}</h3><p>{zone[1]}</p><div className="zone-chips">{zone[3].map((x) => <span key={x}>{x}</span>)}</div></div></div><BeautyEconomics /></div></section>;
 }
 function MoneyCount({ amount }: { amount: string }) {
   if (amount === "$1.05M") return <><CountUp to={1.05} prefix="$" suffix="M" decimals={2} /></>;
@@ -289,7 +378,127 @@ function TechLayer() {
 
 function Blueprint() { const [active, setActive] = useState(0); return <section className="forest-section blueprint-section"><div className="shell"><SectionTitle eyebrow="Blueprint · Operating System" title="SHE DOESN’T COME EMPTY-HANDED." italic="she comes with a system.">Ten frameworks, one operating system — customer, product, marketing, funnel, content, retention and financial discipline proven across twenty years and four nine-figure brands. Click a framework to inspect how it works.</SectionTitle><div className="framework-layout"><div className="framework-grid">{frameworks.map(([f], i) => <button className={active === i ? "active" : ""} onClick={() => setActive(i)} onMouseEnter={() => setActive(i)} key={f}><span>{String(i + 1).padStart(2, "0")}</span><strong>{f}</strong></button>)}</div><div key={frameworks[active][0]} className="framework-detail active-panel"><Kicker left="Selected framework" right="master blueprint" /><h3>{frameworks[active][0]}</h3><p>{frameworks[active][1]}</p></div></div></div></section>; }
 
-function MarketAndRisk() { return <section className="cream-section"><div className="shell"><SectionTitle eyebrow="13 · Why Now / Risk" title="FOUR CATEGORIES. ONE BUYER." italic="Founder-level discipline on where this could break.">The deck is strongest when it shows both market scale and risk discipline. This section makes both inspectable instead of hiding them in slides.</SectionTitle><div className="market-grid">{market.map(([cat, val, note]) => <button key={cat}><span>{cat}</span><strong>{val}</strong><p>{note}</p></button>)}</div><div className="risk-grid">{risks.map(([r,t,m]) => <details key={r}><summary>{r}<ChevronRight size={16}/></summary><h3>{t}</h3><p>{m}</p></details>)}</div></div></section>; }
-function Financials() { return <section id="financials" className="cream-section"><div className="shell"><SectionTitle eyebrow="18 · Financials" title="PATH TO $12M REVENUE, BREAKEVEN IN YEAR THREE." italic="Milestone-gated capital. Gross margin discipline inherited from Fenty." /><div className="financial-lab"><div><Kicker left="Year-three revenue streams" /><div className="revenue-bars">{revenue.map(([name, amount, label, w]) => <div className="bar-row" key={name as string}><div><strong>{name}</strong><span>{label}</span></div><div className="bar-track"><span style={{ width: `${w}%` }} /></div><b>{amount}</b></div>)}</div></div><div className="projection-table"><Kicker left="3-year projection" /><table><thead><tr><th></th><th>Y1</th><th>Y2</th><th>Y3</th></tr></thead><tbody>{threeYear.map((r) => <tr key={r[0]}>{r.map((c, i) => i === 0 ? <th key={c}>{c}</th> : <td key={c}>{c}</td>)}</tr>)}</tbody></table></div></div><div className="traction-grid">{traction.map(([k,n,l]) => <button key={k}><span>{k}</span><strong><SmartNumber value={n} /></strong><p>{l}</p></button>)}</div><div className="allocation-grid"><div><Kicker left="Use of funds" />{useFunds.map(([a,b,c]) => <div className="fund-row" key={a}><strong>{a}</strong><span>{b}</span><em>{c}</em></div>)}</div><div><Kicker left="Channel mix · Year one" />{channels.map(([a,b,c]) => <div className="fund-row" key={a}><strong>{a}</strong><span>{b}</span><em>{c}</em></div>)}</div></div><div className="ask-card"><div><Kicker left="19 · The Ask" /><h3>$6.5M SEED · PREFERRED EQUITY.</h3><p>24 months of runway. Four ventures in market. One ecosystem at scale.</p></div><a className="gold-btn" href="mailto:ciarra@miojoco.com">Request meeting <ArrowRight size={16}/></a></div></div></section>; }
+function MarketAndRisk() { return <section className="cream-section"><div className="shell"><SectionTitle eyebrow="13 · Why Now / Risk" title="FOUR CATEGORIES. ONE BUYER." italic="Founder-level discipline on where this could break.">The deck is strongest when it shows both market scale and risk discipline. This section makes both inspectable instead of hiding them in slides.</SectionTitle><div className="market-grid">{market.map(([cat, val, note]) => <button key={cat} className="has-source" onClick={() => openSourceDrawer(cat)} aria-label={`${cat} — open source context`}><span>{cat}</span><strong>{val}</strong><p>{note}</p></button>)}</div><div className="risk-grid">{risks.map(([r,t,m]) => <details key={r}><summary>{r}<ChevronRight size={16}/></summary><h3>{t}</h3><p>{m}</p></details>)}</div></div></section>; }
+function Financials() { return <section id="financials" className="cream-section"><div className="shell"><SectionTitle eyebrow="18 · Financials" title="PATH TO $12M REVENUE, BREAKEVEN IN YEAR THREE." italic="Milestone-gated capital. Gross margin discipline inherited from Fenty." /><div className="financial-lab"><div><Kicker left="Year-three revenue streams" /><div className="revenue-bars">{revenue.map(([name, amount, label, w]) => <div className="bar-row" key={name as string}><div><strong>{name}</strong><span>{label}</span></div><div className="bar-track"><span style={{ width: `${w}%` }} /></div><b>{amount}</b></div>)}</div></div><div className="projection-table"><Kicker left="3-year projection" /><table><thead><tr><th></th><th>Y1</th><th>Y2</th><th>Y3</th></tr></thead><tbody>{threeYear.map((r) => <tr key={r[0]}>{r.map((c, i) => i === 0 ? <th key={c}>{c}</th> : <td key={c}>{c}</td>)}</tr>)}</tbody></table></div></div><div className="traction-grid">{traction.map(([k,n,l]) => <button key={k} className="has-source" onClick={() => openSourceDrawer(k)} aria-label={`${k} — open source context`}><span>{k}</span><strong><SmartNumber value={n} /></strong><p>{l}</p></button>)}</div><div className="allocation-grid"><div><Kicker left="Use of funds" />{useFunds.map(([a,b,c]) => <div className="fund-row" key={a}><strong>{a}</strong><span>{b}</span><em>{c}</em></div>)}</div><div><Kicker left="Channel mix · Year one" />{channels.map(([a,b,c]) => <div className="fund-row" key={a}><strong>{a}</strong><span>{b}</span><em>{c}</em></div>)}</div></div><div className="ask-card"><div><Kicker left="19 · The Ask" /><h3>$6.5M SEED · PREFERRED EQUITY.</h3><p>24 months of runway. Four ventures in market. One ecosystem at scale.</p></div><a className="gold-btn" href="mailto:ciarra@miojoco.com">Request meeting <ArrowRight size={16}/></a></div></div></section>; }
 
-export default function Home() { return <main><ScrollProgress /><nav className="top-nav"><a href="#top">CIARRA PARDO CO</a><div><a href="#founder">Founder</a><a href="#portfolio">Portfolio</a><a href="#beautydays">BeautyDays</a><a href="#ecosystem">Ecosystem</a><a href="#financials">Financials</a></div></nav><Hero /><TrackRecord /><Journey /><Portfolio /><MiOjoVenture /><Peppers /><BeautyDays /><ResidencesVenture /><Ecosystem /><TechLayer /><Blueprint /><MarketAndRisk /><Financials /></main>; }
+// Single global drawer — listens for `miojo:open-source` events fired from any
+// metric tile. Reuses DetailDrawer's chrome; pulls content from sourceMap.
+function SourceDrawer() {
+  const [activeKey, setActiveKey] = useState<string | null>(null);
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent<{ key: string }>).detail;
+      if (detail?.key) setActiveKey(detail.key);
+    };
+    window.addEventListener("miojo:open-source", handler);
+    return () => window.removeEventListener("miojo:open-source", handler);
+  }, []);
+  if (!activeKey) return null;
+  const data = sourceMap[activeKey];
+  if (!data) return null;
+  return (
+    <DetailDrawer open onClose={() => setActiveKey(null)} title={data.title}>
+      <p className="drawer-lede">{activeKey}</p>
+      <p style={{ color: "var(--muted)", lineHeight: 1.65, fontSize: 18, margin: "20px 0 0" }}>{data.body}</p>
+      {data.chips && (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 22 }}>
+          {data.chips.map((c) => (
+            <span key={c} style={{ border: "1px solid rgba(45,58,45,.2)", padding: "8px 12px", color: "var(--olive)", textTransform: "uppercase", letterSpacing: ".12em", fontSize: 11, fontWeight: 800 }}>{c}</span>
+          ))}
+        </div>
+      )}
+      <div className="drawer-metric"><span>Sourcing posture</span><strong>Numbers shown reflect founder + market context. Detailed sourcing available on request to qualified investors.</strong></div>
+    </DetailDrawer>
+  );
+}
+
+// Platform Thesis — short interstitial that resolves "is this one business or several?"
+// before the page splits into four venture deep-dives.
+function PlatformThesis() {
+  const pillars = [
+    { eyebrow: "Founder taste", body: "Every expression starts with the same standard. Twenty years of cultural decisions encoded into one operating posture." },
+    { eyebrow: "Shared audience", body: "BeautyDays converts attention into a known, opt-in audience the rest of the platform compounds against." },
+    { eyebrow: "Operating layer", body: "Miojo OS holds memory, signal, and coordination so one founder can run a multi-venture platform without losing the standard." },
+    { eyebrow: "Commerce surfaces", body: "Studio fees, hospitality, membership, CPG, retreats — different surfaces, same audience, same brand language." },
+  ];
+  return (
+    <section id="platform-thesis" className="thesis-section">
+      <div className="shell thesis-grid reveal-on-view">
+        <div className="thesis-headline">
+          <Kicker left="03 · Platform thesis" right="What you are looking at" />
+          <h2><WordReveal text="NOT FOUR IDEAS. ONE OPERATING ENGINE." accent="ENGINE" /></h2>
+          <em>One founder. One taste standard. One audience. Four expressions.</em>
+        </div>
+        <div className="thesis-pillars">
+          {pillars.map((p) => (
+            <div key={p.eyebrow}>
+              <span>{p.eyebrow}</span>
+              <b>What it does</b>
+              <p>{p.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Closing — return to founder/platform thesis at the end. Restrained, premium, inevitable.
+function Closing() {
+  return (
+    <section id="closing" className="closing-section">
+      <div className="shell reveal-on-view">
+        <div className="kicker"><span>20 · Closing</span><span>The bet</span></div>
+        <h2 className="closing-headline">
+          <WordReveal text="THE BET IS SIMPLE." />
+          <br />
+          <em>BACK THE FOUNDER.</em>
+          <br />
+          <WordReveal text="BACK THE ENGINE SHE'S ALREADY RUNNING." />
+        </h2>
+        <p className="closing-lede">
+          Miojo is not a deck full of possibilities. It is one founder, one audience, one operating engine — and four expressions that already compound against each other. The expressions take care of themselves.
+        </p>
+        <div className="closing-actions">
+          <a href="#financials" className="gold-btn">Review the model <ArrowRight size={16} /></a>
+          <a href="mailto:ciarra@miojoco.com" className="line-btn">Request meeting</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default function Home() {
+  return (
+    <main>
+      <ScrollProgress />
+      <nav className="top-nav">
+        <a href="#top">CIARRA PARDO CO</a>
+        <div>
+          <a href="#founder">Founder</a>
+          <a href="#platform-thesis">Platform</a>
+          <a href="#ecosystem">Ecosystem</a>
+          <a href="#beautydays">BeautyDays</a>
+          <a href="#miojo-os">Operating</a>
+          <a href="#financials">Financials</a>
+        </div>
+      </nav>
+      <Hero />
+      <TrackRecord />
+      <PlatformThesis />
+      <Ecosystem />
+      <Journey />
+      <Portfolio />
+      <MiOjoVenture />
+      <Peppers />
+      <BeautyDays />
+      <ResidencesVenture />
+      <TechLayer />
+      <Blueprint />
+      <MarketAndRisk />
+      <Financials />
+      <Closing />
+      <SourceDrawer />
+    </main>
+  );
+}

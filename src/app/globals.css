@@ -930,3 +930,146 @@ blockquote, .drawer-lede,
 @media (max-width: 620px) {
   .traction-grid { grid-template-columns: 1fr; }
 }
+
+/* ---------------------------------------------------------------------------
+   Hotfix 15: rescue-pass — preview QA round 3
+   - BeautyDays Y1 econ bars: switch from CSS animation to TRANSITION so the
+     scaleX fill reliably fires on first scroll-into-view, not just sometimes.
+   - Traction grid: my prior `.traction-grid span` rule was too broad; it
+     was matching the inner span that CountUp renders inside <strong> and
+     squashing the number to 11px olive. Scope the eyebrow rule to direct
+     children only (`:first-of-type`), and explicitly force every <strong>
+     and the descendant span inside it to be the same large terracotta
+     hero-stat treatment. Apply the same safety override across stat-card,
+     beauty-metrics, market-grid so the inner-span-shrink bug can't recur.
+   --------------------------------------------------------------------------- */
+
+/* (1) BeautyDays bars — transition-based, guaranteed scroll-fire */
+.econ-row {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 700ms cubic-bezier(.2,.85,.35,1) var(--delay, 0ms),
+    transform 700ms cubic-bezier(.2,.85,.35,1) var(--delay, 0ms);
+  animation: none !important;
+}
+.animated-econ[data-shown="true"] .econ-row {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* The bar track */
+.mini-bar > div {
+  height: 20px !important;
+  background: rgba(245,241,232,.10) !important;
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* The bar fill — scales from 0 to 1, transition fires when [data-shown="true"] */
+.mini-bar > div > i {
+  display: block;
+  width: var(--bar) !important;
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--rust) 55%, var(--peach) 100%) !important;
+  border-radius: 999px;
+  box-shadow: 0 0 22px rgba(196,164,95,.45);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1900ms cubic-bezier(.7, 0, .25, 1) calc(var(--delay, 0ms) + 280ms);
+  animation: none !important;
+  will-change: transform;
+}
+.animated-econ[data-shown="true"] .mini-bar > div > i {
+  transform: scaleX(1);
+}
+
+/* The leading-edge sheen sweep — fires once across the whole track */
+.mini-bar > div::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  left: -55%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,245,225,.55) 50%, transparent 100%) !important;
+  filter: blur(3px);
+  opacity: 0;
+  pointer-events: none;
+  animation: none !important;
+}
+.animated-econ[data-shown="true"] .mini-bar > div::after {
+  animation: bar-sheen-once 2200ms cubic-bezier(.7, 0, .25, 1) calc(var(--delay, 0ms) + 380ms) forwards;
+}
+@keyframes bar-sheen-once {
+  0%   { left: -55%; opacity: 0; }
+  18%  { opacity: 1; }
+  82%  { opacity: 1; }
+  100% { left: 105%; opacity: 0; }
+}
+
+/* (2) Traction grid — scope eyebrow rule, force strong AND its inner span
+   to render as a strong hero stat. Mi Ojo 7 / Peppers 2,400 / 28 LOIs /
+   1.2M+ should all read identically. */
+.traction-grid > div > span:first-of-type,
+.traction-grid > button > span:first-of-type {
+  display: block;
+  color: var(--olive);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 900;
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+/* Override the over-broad `.traction-grid span` rule for descendant spans
+   (e.g. inside <strong> from CountUp) so they inherit from <strong>. */
+.traction-grid strong,
+.traction-grid > div > strong,
+.traction-grid > button > strong {
+  display: block !important;
+  margin: 0 !important;
+  font-family: var(--font-fraunces), Georgia, serif !important;
+  font-size: clamp(48px, 5vw, 64px) !important;
+  line-height: .92 !important;
+  letter-spacing: -.04em !important;
+  color: var(--terracotta) !important;
+  font-weight: 500 !important;
+  font-variant-numeric: tabular-nums;
+  text-transform: none !important;
+}
+.traction-grid strong > span,
+.traction-grid strong span {
+  /* Inner CountUp span — inherit everything from <strong> */
+  display: inline !important;
+  font-size: inherit !important;
+  font-family: inherit !important;
+  color: inherit !important;
+  letter-spacing: inherit !important;
+  text-transform: none !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  font-variant-numeric: tabular-nums !important;
+  margin: 0 !important;
+}
+
+/* Same safety override for the other metric tiles, in case the same
+   "inner span overrides strong" pattern is making them quietly small too. */
+.stat-card strong > span,
+.stat-card strong span,
+.beauty-metrics strong > span,
+.beauty-metrics strong span,
+.market-grid strong > span,
+.market-grid strong span {
+  display: inline !important;
+  font-size: inherit !important;
+  font-family: inherit !important;
+  color: inherit !important;
+  letter-spacing: inherit !important;
+  text-transform: none !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  font-variant-numeric: tabular-nums !important;
+  margin: 0 !important;
+}

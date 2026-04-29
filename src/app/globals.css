@@ -621,3 +621,312 @@ blockquote, .drawer-lede,
   .animated-timeline[data-shown="true"]::before, .animated-timeline[data-shown="true"] .timeline-item, .animated-timeline[data-shown="true"] .dot { animation: none !important; opacity: 1 !important; transform: none !important; }
   .animated-econ[data-shown="true"] .econ-row, .animated-econ[data-shown="true"] .econ-row div i { animation: none !important; opacity: 1 !important; transform: none !important; }
 }
+
+/* ---------------------------------------------------------------------------
+   Hotfix 14: rescue-pass refinement — preview QA fixes
+   --------------------------------------------------------------------------- */
+
+/* (1) Founder portrait — defensive transition, NEVER fully hidden.
+   Replaces the prior clip-path-based reveal which could leave the image
+   completely invisible if data-shown failed to apply. Now uses opacity +
+   transform only, and the failsafe in RevealOnView.tsx forces data-shown
+   after 2.5s if IO never fires. */
+.portrait-reveal {
+  /* Override the base rule's animation entirely. */
+  animation: none !important;
+  clip-path: none !important;
+  /* Always renders, just fades + lifts in. */
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 950ms cubic-bezier(.2,.85,.35,1) .12s,
+    transform 950ms cubic-bezier(.2,.85,.35,1) .12s;
+  will-change: opacity, transform;
+}
+.portrait-reveal[data-shown="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+.portrait-reveal img {
+  /* Override the base rule's settle animation; use simple zoom-out instead. */
+  animation: none !important;
+  transform: scale(1.04);
+  transition: transform 1500ms cubic-bezier(.2,.85,.35,1) .12s;
+  will-change: transform;
+}
+.portrait-reveal[data-shown="true"] img { transform: scale(1); }
+
+/* (2) Ecosystem center circle — kill UA button padding, flex-center
+   the typography column inside the 190px circle, tighten line-heights. */
+.eco-center {
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+  line-height: 1;
+}
+.eco-center strong {
+  display: block;
+  font-family: var(--font-fraunces), Georgia, serif !important;
+  font-size: 30px;
+  line-height: .92;
+  letter-spacing: -.02em;
+  font-weight: 500;
+  /* Optical correction — descender on "j" needs slight lift inside circle */
+  margin: 0;
+}
+.eco-center em {
+  display: block;
+  margin: 0;
+  font-family: var(--font-fraunces), Georgia, serif !important;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.1;
+  color: var(--peach);
+  letter-spacing: 0;
+}
+@media (max-width: 700px) {
+  .eco-center strong { font-size: 24px; }
+  .eco-center em { font-size: 14px; }
+}
+
+/* (3) Journey timeline — stronger, more progressive motion. Dot pulses,
+   line draws longer, items lift higher with a slower stagger. */
+.animated-timeline:not([data-shown="true"])::before {
+  background: rgba(196,164,95,0); /* invisible until drawn */
+}
+.animated-timeline[data-shown="true"]::before {
+  background: rgba(196,164,95,.55);
+  animation: timeline-draw 1700ms cubic-bezier(.2,.85,.35,1) .15s forwards;
+}
+.animated-timeline:not([data-shown="true"]) .timeline-item {
+  opacity: 0;
+  transform: translateY(28px);
+}
+.animated-timeline[data-shown="true"] .timeline-item {
+  animation: timeline-item-richer 720ms cubic-bezier(.2,.85,.35,1) calc(.4s + var(--i, 0) * 180ms) forwards;
+}
+.animated-timeline:not([data-shown="true"]) .dot {
+  opacity: 0;
+  transform: scale(.2);
+}
+.animated-timeline[data-shown="true"] .dot {
+  animation:
+    timeline-dot-in 580ms cubic-bezier(.2,.85,.35,1) calc(.25s + var(--i, 0) * 180ms) forwards,
+    dot-pulse 2.4s ease-in-out calc(1.6s + var(--i, 0) * 180ms) infinite;
+}
+@keyframes timeline-item-richer {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes dot-pulse {
+  0%, 100% { box-shadow: 0 0 0 9px rgba(196,164,95,.12); }
+  50%      { box-shadow: 0 0 0 12px rgba(196,164,95,.22); }
+}
+.animated-timeline .timeline-item:hover .dot {
+  background: var(--peach);
+  box-shadow: 0 0 0 14px rgba(196,164,95,.28), 0 0 28px rgba(196,164,95,.5) !important;
+  transition: box-shadow 280ms ease, background 280ms ease;
+}
+.animated-timeline .timeline-item:hover strong {
+  color: var(--peach);
+  transition: color 260ms ease;
+}
+
+/* (4) BeautyDays economics — premium bar fills, larger bars, slower fill,
+   monospace tabular numerals on amounts, stronger sheen. */
+.beauty-econ { padding: 30px; }
+.mini-bar { padding: 18px 0; }
+.mini-bar div {
+  height: 18px !important; /* was 12px — beefier track */
+  border-radius: 999px;
+  background: rgba(245,241,232,.10);
+}
+.mini-bar div i {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--rust) 55%, var(--peach) 100%) !important;
+  box-shadow: 0 0 24px rgba(196,164,95,.35);
+}
+.mini-bar div::after {
+  /* Stronger sheen sweep timed to bar fill */
+  background: linear-gradient(90deg, transparent 0%, rgba(255,245,225,.32) 50%, transparent 100%) !important;
+}
+.animated-econ[data-shown="true"] .econ-row div i {
+  animation: econ-bar-fill 1500ms cubic-bezier(.2,.85,.35,1) calc(var(--delay, 0ms) + 220ms) forwards !important;
+}
+.animated-econ[data-shown="true"] .econ-row div::after {
+  animation: econ-sheen 1700ms ease calc(var(--delay, 0ms) + 600ms) forwards !important;
+}
+.mini-bar b {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 28px !important; /* was 24 */
+  color: var(--peach);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.01em;
+}
+.mini-bar span {
+  font-size: 13px;
+  letter-spacing: .04em;
+}
+.mini-bar small {
+  font-size: 10px;
+  letter-spacing: .14em;
+  opacity: .7;
+}
+
+/* (5) Blueprint frameworks — center the section title, frame the detail
+   panel, polish hover/active state on cards. */
+.blueprint-section .section-title {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  max-width: 920px;
+}
+.blueprint-section .section-title .kicker { justify-content: center; }
+.blueprint-section .section-title h2 {
+  text-wrap: balance;
+}
+.blueprint-section .section-title p { margin-left: auto; margin-right: auto; }
+.framework-layout { gap: 32px; align-items: start; }
+.framework-grid { gap: 1px; background: rgba(196,164,95,.18); }
+.framework-grid button {
+  position: relative;
+  background: var(--forest-2);
+  color: var(--cream);
+  padding: 22px 18px;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  transition: all .28s ease;
+  min-height: 162px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+}
+.framework-grid button span {
+  color: var(--gold);
+  letter-spacing: .16em;
+  font-size: 11px;
+  font-weight: 800;
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+.framework-grid button strong {
+  display: block;
+  font-family: var(--font-fraunces), Georgia, serif !important;
+  font-size: clamp(20px, 2.1vw, 28px);
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  font-weight: 500;
+}
+.framework-grid button.active {
+  background: var(--gold);
+  color: var(--forest);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 44px rgba(196,164,95,.35);
+}
+.framework-grid button.active span { color: var(--rust); }
+.framework-grid button.active::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(31,44,32,.18);
+  pointer-events: none;
+}
+.framework-detail {
+  position: sticky;
+  top: 100px;
+  background: var(--cream-2) !important;
+  border: 1px solid rgba(196,164,95,.32);
+  border-radius: 0;
+  padding: 36px;
+  min-height: 380px;
+  box-shadow: 0 22px 60px rgba(31,44,32,.16);
+}
+.framework-detail .kicker {
+  color: var(--gold);
+  border-bottom: 1px solid rgba(45,58,45,.12);
+  padding-bottom: 14px;
+  margin-bottom: 12px;
+}
+.framework-detail h3 {
+  font-family: var(--font-fraunces), Georgia, serif !important;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: .92;
+  letter-spacing: -.045em;
+  margin: 18px 0 14px;
+  color: var(--forest);
+}
+.framework-detail p {
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.65;
+}
+@media (max-width: 1180px) {
+  .framework-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .framework-detail { position: relative; top: auto; }
+}
+@media (max-width: 620px) {
+  .framework-grid { grid-template-columns: 1fr; }
+  .framework-grid button { min-height: 132px; }
+}
+
+/* (6) Traction grid — the existing CSS targets `.traction-grid div` but the
+   children render as <button>. Apply background/padding/typography to BOTH. */
+.traction-grid > div,
+.traction-grid > button {
+  background: var(--cream-2);
+  padding: 28px 24px;
+  border: 0;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  cursor: pointer;
+  transition: transform .28s cubic-bezier(.2,.85,.35,1), box-shadow .28s ease;
+}
+.traction-grid > button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 54px rgba(31,44,32,.12);
+}
+.traction-grid span {
+  color: var(--olive);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 900;
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+.traction-grid strong {
+  display: block;
+  margin: 0;
+  font-family: var(--font-fraunces), Georgia, serif !important;
+  font-size: clamp(40px, 4.6vw, 56px) !important;
+  line-height: .92;
+  letter-spacing: -.04em;
+  color: var(--terracotta);
+  font-variant-numeric: tabular-nums;
+}
+.traction-grid p {
+  margin: 0;
+  color: var(--forest);
+  font-size: 13px;
+  line-height: 1.5;
+  opacity: .82;
+}
+.traction-grid > button.has-source::after {
+  /* Move chevron tighter so it doesn't overlap the strong number on small cards */
+  right: 14px;
+  top: 14px;
+}
+@media (max-width: 980px) {
+  .traction-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 620px) {
+  .traction-grid { grid-template-columns: 1fr; }
+}

@@ -259,6 +259,7 @@ function SmartNumber({ value }: { value: string }) {
   if (value === "4") return <CountUp to={4} />;
   if (value === "$3B+") return <CountUp to={3} prefix="$" suffix="B+" />;
   if (value === "3") return <CountUp to={3} />;
+  if (value === "7") return <CountUp to={7} />;
   if (value === "8,500") return <CountUp to={8500} />;
   if (value === "125+") return <CountUp to={125} suffix="+" />;
   if (value === "$2.3M") return <CountUp to={2.3} prefix="$" suffix="M" decimals={1} />;

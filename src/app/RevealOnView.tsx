@@ -45,7 +45,20 @@ export function RevealOnView() {
       }
     });
 
-    return () => io.disconnect();
+    // Defensive failsafe: if for any reason IO doesn't fire (slow scroll past,
+    // hydration race, broken observer), force-show after 2.5s so nothing stays
+    // permanently hidden. Animations still run normally for everything in the
+    // happy path.
+    const failsafe = window.setTimeout(() => {
+      targets.forEach((el) => {
+        if (el.dataset.shown !== "true") el.dataset.shown = "true";
+      });
+    }, 2500);
+
+    return () => {
+      window.clearTimeout(failsafe);
+      io.disconnect();
+    };
   }, []);
 
   return null;
